@@ -32,12 +32,12 @@ public class VistaMenu extends JPanel {
 	private JLabel lblIngredientes;
 	private JLabel lblLogo;
 
-	/*private Image img_camarero = 
-			new ImageIcon(VistaMenu.class.getResource("imgs/waiter.png")).
+	private Image img_camarero = 
+			new ImageIcon(VistaMenu.class.getResource("../res/waiter.png")).
 			getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
 	
 	private Image img_cuenta = 
-			new ImageIcon(VistaMenu.class.getResource("/imgs/bill.png")).
+			new ImageIcon(VistaMenu.class.getResource("../res/bill.png")).
 			getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
 	
 	private Image img_home = 
@@ -45,7 +45,7 @@ public class VistaMenu extends JPanel {
 			getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
 	
 	private Image img_logo = 
-			new ImageIcon(VistaMenu.class.getResource("/food.png")).
+			new ImageIcon(VistaMenu.class.getResource("../res/food.png")).
 			getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
 	
 	private Image img_plato = 
@@ -62,7 +62,7 @@ public class VistaMenu extends JPanel {
 	
 	private Image img_ingrediente = 
 			new ImageIcon(VistaMenu.class.getResource("../res/ingredient.png")).
-			getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);*/
+			getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
 	
 	
 	public VistaMenu() {
@@ -74,43 +74,43 @@ public class VistaMenu extends JPanel {
 		lblLogo = new JLabel("");
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo.setBounds(20, 22, 130, 107);
-		//lblLogo.setIcon(new ImageIcon(img_logo));
+		lblLogo.setIcon(new ImageIcon(img_logo));
 		add(lblLogo);
 		
 		pnlHome = new JPanel();
 		configuracionPanel(pnlHome, 140);
 		mouseListen(pnlHome);
-		configuracionLabel("HOME", lblHome, pnlHome);
+		configuracionLabel("HOME", lblHome, pnlHome, new ImageIcon(img_home));
 		
 		pnlCamareros = new JPanel();
 		configuracionPanel(pnlCamareros, 212);
 		mouseListen(pnlCamareros);
-		configuracionLabel("CAMAREROS", lblCamareros, pnlCamareros);
+		configuracionLabel("CAMAREROS", lblCamareros, pnlCamareros, new ImageIcon(img_camarero));
 		
 		pnlCuentas = new JPanel();
 		configuracionPanel(pnlCuentas, 176);
 		mouseListen(pnlCuentas);
-		configuracionLabel("CUENTAS", lblCuentas, pnlCuentas);
+		configuracionLabel("CUENTAS", lblCuentas, pnlCuentas, new ImageIcon(img_cuenta));
 		
 		pnlPlatos = new JPanel();
 		configuracionPanel(pnlPlatos, 320);
 		mouseListen(pnlPlatos);
-		configuracionLabel("PLATOS", lblPlatos, pnlPlatos);
+		configuracionLabel("PLATOS", lblPlatos, pnlPlatos, new ImageIcon(img_plato));
 		
 		pnlBebidas = new JPanel();
 		configuracionPanel(pnlBebidas, 284);
 		mouseListen(pnlBebidas);
-		configuracionLabel("BEBIDAS", lblBebidas, pnlBebidas);		
+		configuracionLabel("BEBIDAS", lblBebidas, pnlBebidas, new ImageIcon(img_bebida));		
 		
 		pnlMesas = new JPanel();
 		configuracionPanel(pnlMesas, 248);
 		mouseListen(pnlMesas);
-		configuracionLabel("MESAS", lblMesas, pnlMesas);
+		configuracionLabel("MESAS", lblMesas, pnlMesas, new ImageIcon(img_mesa));
 		
 		pnlIngredientes = new JPanel();
 		configuracionPanel(pnlIngredientes, 356);
 		mouseListen(pnlIngredientes);
-		configuracionLabel("INGREDIENTES", lblIngredientes, pnlIngredientes);
+		configuracionLabel("INGREDIENTES", lblIngredientes, pnlIngredientes, new ImageIcon(img_ingrediente));
 
 		cambiarColorPanel(pnlHome);
 	}
@@ -171,12 +171,12 @@ public class VistaMenu extends JPanel {
 		add(panel);
 	}
 	
-	public void configuracionLabel(String nombre, JLabel label, JPanel panel) {
+	public void configuracionLabel(String nombre, JLabel label, JPanel panel, ImageIcon imagen) {
 		label = new JLabel(nombre);
 		label.setHorizontalAlignment(SwingConstants.LEFT);
 		label.setForeground(Color.WHITE);
 		label.setBounds(25, 3, 122, 30);
-		//label.setIcon(imagen);
+		label.setIcon(imagen);
 		panel.add(label);
 	}
 	

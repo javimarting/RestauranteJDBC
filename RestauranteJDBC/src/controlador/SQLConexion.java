@@ -19,15 +19,7 @@ private static Connection conexion = null;
 		try {
 			conexion = DriverManager.getConnection("jdbc:sqlite:./db/restaurante.db");
 			conexion.createStatement().execute("PRAGMA foreign_keys=ON");
-			//Create statement
-			/*Statement miStatement = conexion.createStatement();
 			
-			//Create table
-			miStatement.execute("CREATE TABLE IF NOT EXISTS camarero("
-					+ "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-					+ "Nombre TEXT NOT NULL,"
-					+ "Apellido TEXT NOT NULL,"
-					+ "Sueldo INTEGER)");*/
 			
 		}catch (SQLException e) {
             System.err.println("ERROR AL CONECTAR CON EL SERVIDOR");

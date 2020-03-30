@@ -79,4 +79,16 @@ public class MainFrame extends JFrame {
 	public VistaHome getVistaHome() {
 		return vistaHome;
 	}
+	
+	public VistaPlato getVistaPlato() {
+		return vistaPlato;
+	}
+	
+	public VistaCamarero getVistaCamarero() {
+		return vistaCamarero;
+	}
+	
+	public VistaIngrediente getVistaIngrediente() {
+		return vistaIngrediente;
+	}
 }

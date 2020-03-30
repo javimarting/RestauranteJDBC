@@ -8,14 +8,24 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import modelo.Entidad;
+
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class VistaEntidad extends JPanel {
 
+	
+	private static final long serialVersionUID = -5506562014929062558L;
 	private JScrollPane scroll;
 	protected ModeloTabla modeloTabla;
 	private JTable tabla;
+	private JLabel lblTitulo;
+	private JPanel pnlBotones;
+	private JButton btnInsertar;
+	private JButton btnModificar;
+	private JButton btnEliminar;
 	
 	
 	public VistaEntidad(String titulo, String[] columnas) {
@@ -30,16 +40,52 @@ public class VistaEntidad extends JPanel {
         add(scroll);
 		scroll.setBounds(19, 130, 492, 360);
 		
-		JLabel lblTitulo = new JLabel(titulo);
-		
+		lblTitulo = new JLabel(titulo);
+		lblTitulo.setFont(new Font("Lucida Grande", Font.BOLD, 20));		
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setBounds(210, 42, 110, 30);
+		lblTitulo.setBounds(185, 42, 160, 30);
 		add(lblTitulo);
+		
+		pnlBotones = new JPanel();
+		pnlBotones.setOpaque(false);
+		pnlBotones.setBounds(19, 512, 492, 42);
+		pnlBotones.setLayout(null);
+		add(pnlBotones);
+		
+		btnInsertar = new JButton("INSERTAR");
+		btnInsertar.setBounds(26, 6, 118, 29);
+		btnInsertar.setOpaque(true);
+		btnInsertar.setForeground(Color.WHITE);
+		btnInsertar.setBorder(null);
+		btnInsertar.setBackground(new Color(51, 102, 153));
+		pnlBotones.add(btnInsertar);
+		
+		btnModificar = new JButton("MODIFICAR");
+		btnModificar.setOpaque(true);
+		btnModificar.setForeground(Color.WHITE);
+		btnModificar.setBorder(null);
+		btnModificar.setBackground(new Color(51, 102, 153));
+		btnModificar.setBounds(187, 7, 118, 29);
+		pnlBotones.add(btnModificar);
+		
+		btnEliminar = new JButton("ELIMINAR");
+		btnEliminar.setOpaque(true);
+		btnEliminar.setForeground(Color.WHITE);
+		btnEliminar.setBorder(null);
+		btnEliminar.setBackground(new Color(51, 102, 153));
+		btnEliminar.setBounds(348, 7, 118, 29);
+		pnlBotones.add(btnEliminar);		
+		
 	}
 	
+	public ModeloTabla getModeloTabla() {
+		return modeloTabla;
+	}
 	
-	
+	public Entidad getEntidadSeleccionada() {
+		return modeloTabla.getEntidad(tabla.getSelectedRow());
+	}
 	
 	public class ModeloTabla extends AbstractTableModel{
 		
@@ -74,6 +120,7 @@ public class VistaEntidad extends JPanel {
 		
 		public void setFilas(ArrayList<Entidad> filas) {
 			this.filas = filas;
+			fireTableDataChanged();
 		}
 		
 		public void setColumnas(String[] columnas) {

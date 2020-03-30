@@ -42,4 +42,8 @@ public class NombrePrecio extends Entidad{
 		}
 		return null;
 	}
+	
+	public String toString() {
+		return "Nombre: " + nombre;
+	}
 }
