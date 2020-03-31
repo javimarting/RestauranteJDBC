@@ -3,7 +3,6 @@ package controlador;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import modelo.Entidad;
 import vista.MainFrame;
 
 public class Controlador extends MouseAdapter{
@@ -12,6 +11,17 @@ public class Controlador extends MouseAdapter{
 	
 	public Controlador(MainFrame frame) {
 		this.frame = frame;
+		ControladorEntidad controladorBebida = new ControladorBebida(frame.getVistaBebida());
+		frame.getVistaBebida().conectarControlador(controladorBebida);
+		ControladorEntidad controladorCamarero = new ControladorCamarero(frame.getVistaCamarero());
+		frame.getVistaCamarero().conectarControlador(controladorCamarero);
+		ControladorEntidad controladorIngrediente = new ControladorIngrediente(frame.getVistaIngrediente());
+		frame.getVistaIngrediente().conectarControlador(controladorIngrediente);
+		ControladorEntidad controladorPlato = new ControladorPlato(frame.getVistaPlato());
+		frame.getVistaPlato().conectarControlador(controladorPlato);
+		ControladorEntidad controladorMesa = new ControladorMesa(frame.getVistaMesa());
+		frame.getVistaMesa().conectarControlador(controladorMesa);
+		
 		frame.mostrarVista(frame.getVistaHome());
 	}
 	
@@ -34,6 +44,19 @@ public class Controlador extends MouseAdapter{
 		else if(e.getSource() == frame.getVistaMenu().getPnlCamareros()){
 			frame.mostrarVista(frame.getVistaCamarero());
 			frame.getVistaCamarero().getModeloTabla().setFilas(SQLConsulta.consultarCamareros());
+		}
+		else if(e.getSource() == frame.getVistaMenu().getPnlMesas()){
+			frame.mostrarVista(frame.getVistaMesa());
+			frame.getVistaMesa().getModeloTabla().setFilas(SQLConsulta.consultarMesas());
+		}
+		else if(e.getSource() == frame.getVistaHome().getBotonCrearTablas()) {
+			SQLCrearTablas.crearTablas();
+		}
+		else if(e.getSource() == frame.getVistaHome().getBotonInsertarDatos()) {
+			SQLInsertar.insertarDatosPrueba();
+		}
+		else if(e.getSource() == frame.getVistaHome().getBotonEliminarTablas()) {
+			SQLEliminar.eliminarTablas();
 		}
 		
 	}

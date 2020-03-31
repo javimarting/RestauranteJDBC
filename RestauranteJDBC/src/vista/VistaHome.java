@@ -15,6 +15,7 @@ import controlador.Controlador;
 public class VistaHome extends JPanel {
 
 
+	private static final long serialVersionUID = -8870925811170010039L;
 	private JButton btnCrearTablas;
 	private JButton btnInsertarDatos;
 	private JButton btnEliminarTablas;

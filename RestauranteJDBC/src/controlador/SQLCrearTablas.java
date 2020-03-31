@@ -77,9 +77,9 @@ public class SQLCrearTablas {
 				 	+ "(ingredienteId INTEGER NOT NULL,"
 					+ "platoId INTEGER NOT NULL,"
 				 	+ "cantidad INTEGER NOT NULL,"
-					+ "FOREIGN KEY(ingredientesId) REFERENCES ingredientes(id),"
-					+ "FOREIGN KEY (platoId) REFERENCES platos(id),"
-					+ "PRIMARY KEY (ingredientesId,platosId))";
+					+ "FOREIGN KEY(ingredienteId) REFERENCES ingredientes(id),"
+					+ "FOREIGN KEY (platoId) REFERENCES plato(id),"
+					+ "PRIMARY KEY (ingredienteId,platoId))";
 
 		 
 		 s.execute(camarero);

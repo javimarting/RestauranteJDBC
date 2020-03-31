@@ -1,6 +1,7 @@
 package app;
 
 import controlador.Controlador;
+import controlador.ControladorEntidad;
 import controlador.SQLConexion;
 import controlador.SQLCrearTablas;
 import vista.MainFrame;

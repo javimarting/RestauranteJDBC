@@ -21,5 +21,14 @@ public class Mesa extends Entidad{
 		}
 		return null;
 	}
+
+	public Integer getNumPersonas() {
+		return num_personas;
+	}
+
+	public void setNumPersonas(Integer num_personas) {
+		this.num_personas = num_personas;
+	}
+	
 	
 }

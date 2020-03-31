@@ -1,20 +1,16 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-
 import controlador.Controlador;
 
 
 
 public class MainFrame extends JFrame {
 
+	private static final long serialVersionUID = 7464192795906083075L;
 	private JPanel contentPane;
 	private VistaMenu vistaMenu;
 	private VistaHome vistaHome;
@@ -22,6 +18,8 @@ public class MainFrame extends JFrame {
 	private VistaPlato vistaPlato;
 	private VistaIngrediente vistaIngrediente;
 	private VistaCamarero vistaCamarero;
+	private VistaMesa vistaMesa;
+	private VistaCuenta vistaCuenta;
 
 	public MainFrame() {
 		
@@ -52,6 +50,12 @@ public class MainFrame extends JFrame {
 		vistaCamarero = new VistaCamarero();
 		contentPane.add(vistaCamarero);
 		
+		vistaMesa = new VistaMesa();
+		contentPane.add(vistaMesa);
+		
+		vistaCuenta = new VistaCuenta();
+		contentPane.add(vistaCuenta);
+		
 	}
 	
 	public void conectarControlador(Controlador c) {
@@ -65,6 +69,8 @@ public class MainFrame extends JFrame {
 		vistaPlato.setVisible(false);
 		vistaIngrediente.setVisible(false);
 		vistaCamarero.setVisible(false);
+		vistaMesa.setVisible(false);
+		vistaCuenta.setVisible(false);
 		vista.setVisible(true);
 	}
 	
@@ -90,5 +96,13 @@ public class MainFrame extends JFrame {
 	
 	public VistaIngrediente getVistaIngrediente() {
 		return vistaIngrediente;
+	}
+	
+	public VistaMesa getVistaMesa() {
+		return vistaMesa;
+	}
+	
+	public VistaCuenta getVistaCuenta() {
+		return vistaCuenta;
 	}
 }

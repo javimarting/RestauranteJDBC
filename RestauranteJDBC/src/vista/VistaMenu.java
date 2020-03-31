@@ -16,6 +16,7 @@ import controlador.Controlador;
 
 public class VistaMenu extends JPanel {
 
+	private static final long serialVersionUID = 7119448409746115469L;
 	private JPanel pnlCamareros;
 	private JPanel pnlPlatos;
 	private JPanel pnlCuentas;

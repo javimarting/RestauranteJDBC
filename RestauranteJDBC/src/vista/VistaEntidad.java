@@ -1,20 +1,29 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import controlador.ControladorEntidad;
 import modelo.Entidad;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JTextField;
 
-public class VistaEntidad extends JPanel {
+public abstract class VistaEntidad extends JPanel {
 
 	
 	private static final long serialVersionUID = -5506562014929062558L;
@@ -26,9 +35,16 @@ public class VistaEntidad extends JPanel {
 	private JButton btnInsertar;
 	private JButton btnModificar;
 	private JButton btnEliminar;
+	private JPanel pnlBuscar;
+	private JTextField txtBuscar;
+	private JLabel lblBuscar;
+	private JComboBox<String> cbBuscar;
+	private Image img_buscar = 
+			new ImageIcon(VistaCamarero.class.getResource("../res/search.png")).
+			getImage().getScaledInstance(14, 14, Image.SCALE_SMOOTH);
 	
 	
-	public VistaEntidad(String titulo, String[] columnas) {
+	public VistaEntidad(String titulo, String[] columnas, String[] opciones) {
 		setBackground(new Color(130, 171, 212));
 		setBounds(170, 0, 530, 578);
 		setLayout(null);
@@ -54,37 +70,105 @@ public class VistaEntidad extends JPanel {
 		add(pnlBotones);
 		
 		btnInsertar = new JButton("INSERTAR");
-		btnInsertar.setBounds(26, 6, 118, 29);
-		btnInsertar.setOpaque(true);
-		btnInsertar.setForeground(Color.WHITE);
-		btnInsertar.setBorder(null);
-		btnInsertar.setBackground(new Color(51, 102, 153));
-		pnlBotones.add(btnInsertar);
+		crearBoton(btnInsertar, 26, 6, pnlBotones);
 		
 		btnModificar = new JButton("MODIFICAR");
-		btnModificar.setOpaque(true);
-		btnModificar.setForeground(Color.WHITE);
-		btnModificar.setBorder(null);
-		btnModificar.setBackground(new Color(51, 102, 153));
-		btnModificar.setBounds(187, 7, 118, 29);
-		pnlBotones.add(btnModificar);
+		crearBoton(btnModificar, 187, 6, pnlBotones);
 		
 		btnEliminar = new JButton("ELIMINAR");
-		btnEliminar.setOpaque(true);
-		btnEliminar.setForeground(Color.WHITE);
-		btnEliminar.setBorder(null);
-		btnEliminar.setBackground(new Color(51, 102, 153));
-		btnEliminar.setBounds(348, 7, 118, 29);
-		pnlBotones.add(btnEliminar);		
+		crearBoton(btnEliminar, 348, 6, pnlBotones);
+		
+		pnlBuscar = new JPanel();
+		pnlBuscar.setBounds(19, 96, 310, 30);
+		add(pnlBuscar);
+		pnlBuscar.setLayout(null);
+		
+		cbBuscar = new JComboBox<>(opciones);
+		cbBuscar.setBounds(2, 3, 103, 27);
+		cbBuscar.setSelectedItem(null);
+		pnlBuscar.add(cbBuscar);
+		
+		txtBuscar = new JTextField();
+		txtBuscar.setBounds(111, 3, 112, 26);
+		pnlBuscar.add(txtBuscar);
+		txtBuscar.setColumns(10);
+		
+		lblBuscar = new JLabel("Buscar");
+		lblBuscar.setBounds(235, 7, 61, 16);
+		lblBuscar.setIcon(new ImageIcon(img_buscar));
+		pnlBuscar.add(lblBuscar);
+		mouseListen(lblBuscar);
+		
+		
 		
 	}
 	
+	//Getters
 	public ModeloTabla getModeloTabla() {
 		return modeloTabla;
 	}
 	
-	public Entidad getEntidadSeleccionada() {
+	public Entidad getEntidadSeleccionada(){
 		return modeloTabla.getEntidad(tabla.getSelectedRow());
+	}
+	
+	public JButton getBtnInsertar() {
+		return btnInsertar;
+	}
+
+	public JButton getBtnModificar() {
+		return btnModificar;
+	}
+
+	public JButton getBtnEliminar() {
+		return btnEliminar;
+	}
+	
+	public JLabel getLblBuscar() {
+		return lblBuscar;
+	}
+	
+	public String getOpcionBuscar() {
+		if(cbBuscar.getSelectedItem() == null) {
+			throw new NullPointerException();
+		}
+		return (String)cbBuscar.getSelectedItem();
+	}
+	
+	public String getTxtBuscar() {
+		return txtBuscar.getText();
+	}
+	
+
+	public void crearBoton(JButton boton, int x, int y, JPanel panel) {
+		boton.setOpaque(true);
+		boton.setForeground(Color.WHITE);
+		boton.setBorder(null);
+		boton.setBackground(new Color(51, 102, 153));
+		boton.setBounds(x, y, 118, 29);
+		panel.add(boton);
+		mouseListen(boton);
+	}
+	
+	
+	public void mouseListen(JComponent boton) {
+		boton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			}
+		});
+	}
+	
+	public void conectarControlador(ControladorEntidad c) {
+		btnInsertar.addMouseListener(c);
+		btnModificar.addMouseListener(c);
+		btnEliminar.addMouseListener(c);
+		lblBuscar.addMouseListener(c);
 	}
 	
 	public class ModeloTabla extends AbstractTableModel{

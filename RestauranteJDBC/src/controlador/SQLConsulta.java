@@ -9,6 +9,7 @@ import modelo.Bebida;
 import modelo.Camarero;
 import modelo.Entidad;
 import modelo.Ingrediente;
+import modelo.Mesa;
 import modelo.Plato;
 
 public class SQLConsulta {
@@ -113,6 +114,191 @@ public class SQLConsulta {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public  static ArrayList<Entidad> consultarMesas() {
+		ResultSet rs;
+		ArrayList<Entidad> mesas = new ArrayList<>();
+		try {
+			miSentencia = SQLConexion.getConexion().prepareStatement("SELECT * FROM mesas");
+			rs = miSentencia.executeQuery();
+			while(rs.next()) {
+				Mesa mesa = new Mesa();
+				mesa.setId(rs.getInt("id"));
+				mesa.setNumPersonas(rs.getInt("num_personas"));			
+				
+				mesas.add(mesa);
+			}
+			rs.close();
+			miSentencia.close();
+			return mesas;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static ArrayList<Entidad> consultarCamarero(String opcion, String valor) {
+		ResultSet rs;
+		ArrayList<Entidad> camareros = new ArrayList<>();
+		String consulta = "SELECT * FROM camareros WHERE "+opcion+" = ?";
+		try {
+			miSentencia = SQLConexion.getConexion().prepareStatement(consulta);
+			if(opcion == "id") {
+				miSentencia.setInt(1, Integer.valueOf(valor));
+			}
+			else if(opcion == "Nombre" || opcion == "Apellido") {
+				miSentencia.setString(1, valor);
+			}
+			
+			rs = miSentencia.executeQuery();
+			
+			while(rs.next()) {
+				Camarero camarero = new Camarero();
+				camarero.setId(rs.getInt("id"));
+				camarero.setNombre(rs.getString("nombre"));
+				camarero.setApellido(rs.getString("apellido"));
+				camarero.setDni(rs.getString("dni"));
+				camarero.setSueldo(rs.getInt("sueldo"));
+				
+				camareros.add(camarero);
+			}
+			
+			rs.close();
+			miSentencia.close();
+			return camareros;
+		}catch(SQLException e) {
+			return null;
+		}
+	}
+	
+	public static ArrayList<Entidad> consultarBebida(String opcion, String valor) {
+		ResultSet rs;
+		ArrayList<Entidad> bebidas = new ArrayList<>();
+		String consulta = "SELECT * FROM bebidas WHERE "+opcion+" = ?";
+		try {
+			miSentencia = SQLConexion.getConexion().prepareStatement(consulta);
+			if(opcion == "id") {
+				miSentencia.setInt(1, Integer.valueOf(valor));
+			}
+			else if(opcion == "Nombre") {
+				miSentencia.setString(1, valor);
+			}
+			
+			
+			rs = miSentencia.executeQuery();
+			
+			while(rs.next()) {
+				Bebida bebida = new Bebida();
+				bebida.setId(rs.getInt("id"));
+				bebida.setNombre(rs.getString("nombre"));
+				bebida.setPrecio(rs.getDouble("precio"));				
+				
+				bebidas.add(bebida);
+			}
+			
+			rs.close();
+			miSentencia.close();
+			return bebidas;
+		}catch(SQLException e) {
+			return null;
+		}
+	}
+	
+	public static ArrayList<Entidad> consultarPlato(String opcion, String valor) {
+		ResultSet rs;
+		ArrayList<Entidad> platos = new ArrayList<>();
+		String consulta = "SELECT * FROM platos WHERE "+opcion+" = ?";
+		try {
+			miSentencia = SQLConexion.getConexion().prepareStatement(consulta);
+			if(opcion == "id") {
+				miSentencia.setInt(1, Integer.valueOf(valor));
+			}
+			else if(opcion == "Nombre") {
+				miSentencia.setString(1, valor);
+			}
+			
+			
+			rs = miSentencia.executeQuery();
+			
+			while(rs.next()) {
+				Plato plato = new Plato();
+				plato.setId(rs.getInt("id"));
+				plato.setNombre(rs.getString("nombre"));
+				plato.setPrecio(rs.getDouble("precio"));				
+				
+				platos.add(plato);
+			}
+			
+			rs.close();
+			miSentencia.close();
+			return platos;
+		}catch(SQLException e) {
+			return null;
+		}
+	}
+	
+	public static ArrayList<Entidad> consultarIngrediente(String opcion, String valor) {
+		ResultSet rs;
+		ArrayList<Entidad> ingredientes = new ArrayList<>();
+		String consulta = "SELECT * FROM ingredientes WHERE "+opcion+" = ?";
+		try {
+			miSentencia = SQLConexion.getConexion().prepareStatement(consulta);
+			if(opcion == "id") {
+				miSentencia.setInt(1, Integer.valueOf(valor));
+			}
+			else if(opcion == "Nombre") {
+				miSentencia.setString(1, valor);
+			}
+			
+			
+			rs = miSentencia.executeQuery();
+			
+			while(rs.next()) {
+				Ingrediente ingrediente = new Ingrediente();
+				ingrediente.setId(rs.getInt("id"));
+				ingrediente.setNombre(rs.getString("nombre"));
+				ingrediente.setPrecio(rs.getDouble("precio"));				
+				
+				ingredientes.add(ingrediente);
+			}
+			
+			rs.close();
+			miSentencia.close();
+			return ingredientes;
+		}catch(SQLException e) {
+			return null;
+		}
+	}
+	
+	public static ArrayList<Entidad> consultarMesa(String opcion, String valor) {
+		ResultSet rs;
+		ArrayList<Entidad> mesas = new ArrayList<>();
+		String consulta = "SELECT * FROM mesas WHERE "+opcion+" = ?";
+		try {
+			miSentencia = SQLConexion.getConexion().prepareStatement(consulta);
+			
+				miSentencia.setInt(1, Integer.valueOf(valor));
+			
+			
+			rs = miSentencia.executeQuery();
+			
+			while(rs.next()) {
+				Mesa mesa = new Mesa();
+				mesa.setId(rs.getInt("id"));
+				mesa.setNumPersonas(rs.getInt("num_personas"));				
+				
+				mesas.add(mesa);
+			}
+			
+			rs.close();
+			miSentencia.close();
+			return mesas;
+		}catch(SQLException e) {
 			return null;
 		}
 	}
