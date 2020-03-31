@@ -1,11 +1,14 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public class Camarero extends Entidad{
 
 	private String nombre;
 	private String apellido;
 	private String dni;
 	private Integer sueldo;
+	private ArrayList<Cuenta> cuentas;
 	
 	public Camarero() {
 		
@@ -16,6 +19,7 @@ public class Camarero extends Entidad{
 		this.apellido = apellido;
 		this.dni = dni;
 		this.sueldo = sueldo;
+		cuentas = new ArrayList<>();
 	}
 
 	
@@ -50,6 +54,14 @@ public class Camarero extends Entidad{
 
 	public void setSueldo(Integer sueldo) {
 		this.sueldo = sueldo;
+	}
+
+	public ArrayList<Cuenta> getCuentas() {
+		return cuentas;
+	}
+
+	public void setCuentas(ArrayList<Cuenta> cuentas) {
+		this.cuentas = cuentas;
 	}
 
 	public Object getColumna(int columna) {

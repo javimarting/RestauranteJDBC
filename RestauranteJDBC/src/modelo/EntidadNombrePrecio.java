@@ -1,16 +1,16 @@
 package modelo;
 
-public class NombrePrecio extends Entidad{
+public class EntidadNombrePrecio extends Entidad{
 
 	private String nombre;
 	private Double precio;
 	
 	
-	public NombrePrecio() {
+	public EntidadNombrePrecio() {
 		
 	}
 	
-	public NombrePrecio(String nombre, Double precio) {
+	public EntidadNombrePrecio(String nombre, Double precio) {
 		this.nombre = nombre;
 		this.precio = precio;
 	}

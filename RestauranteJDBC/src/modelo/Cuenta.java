@@ -1,7 +1,5 @@
 package modelo;
 
-import java.sql.Date;
-import java.time.Clock;
 import java.time.LocalDate;
 
 public class Cuenta extends Entidad{
@@ -20,7 +18,7 @@ public class Cuenta extends Entidad{
 	public Cuenta(Camarero camarero, Mesa mesa, Double importe, String metodo_pago, Boolean pago_recibido) {
 		this.camarero = camarero;
 		this.mesa = mesa;
-		fecha = LocalDate.now(Clock.systemDefaultZone());
+		fecha = LocalDate.now();
 		this.importe = importe;
 		this.metodo_pago = metodo_pago;
 		this.pago_recibido = pago_recibido;

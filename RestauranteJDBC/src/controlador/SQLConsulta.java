@@ -222,6 +222,7 @@ public class SQLConsulta {
 			
 			while(rs.next()) {
 				Cuenta cuenta = new Cuenta();
+				cuenta.setId(rs.getInt("id"));
 				cuenta.setCamarero((Camarero)consultarCamarero("id", String.valueOf(rs.getInt("camareroId"))).get(0));
 				cuenta.setMesa((Mesa)consultarMesa("id", String.valueOf(rs.getInt("mesaId"))).get(0));
 				cuenta.setImporte(rs.getDouble("importe"));

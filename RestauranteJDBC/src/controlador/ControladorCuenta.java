@@ -30,7 +30,7 @@ public class ControladorCuenta extends ControladorEntidad{
 	}
 	
 	public Cuenta getEntidadModificada() {
-		Cuenta cuenta = (Cuenta)vistaEntidad.getEntidadSeleccionada();
+		Cuenta cuenta = (Cuenta)vistaEntidad.getEntidadSeleccionada(); 
 		Camarero camarero = (Camarero)((VistaCuenta) vistaEntidad).getCbCamareros().getSelectedItem();
 		Mesa mesa = (Mesa)((VistaCuenta) vistaEntidad).getCbMesas().getSelectedItem();
 		Double importe = Double.valueOf(((VistaCuenta)vistaEntidad).getTxtImporte().getText());
