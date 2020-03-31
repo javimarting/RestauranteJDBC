@@ -1,5 +1,6 @@
 package controlador;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ private static PreparedStatement miSentencia;
 			insertarPlato((Plato)entidad);
 		}
 		else if(Cuenta.class.isInstance(entidad)) {
-			//insertarCuenta((Cuenta)entidad);
+			insertarCuenta((Cuenta)entidad);
 		}
 		else if(Mesa.class.isInstance(entidad)) {
 			insertarMesa((Mesa)entidad);
@@ -111,13 +112,13 @@ private static PreparedStatement miSentencia;
 		}			
 	}
 	
-	/*public static void insertarCuenta(Cuenta cuenta) {
+	public static void insertarCuenta(Cuenta cuenta) {
 		try {			
 			miSentencia = SQLConexion.getConexion().prepareStatement("INSERT INTO Cuentas"
-					+ " (CamareroId, MesaId, Fecha, Importe, Metodo_pago, Pago_recibido) VALUES (?, ?, ?, ?, ?, ?)");		
+					+ " (camareroId, mesaId, fecha, importe, metodo_pago, pago_recibido) VALUES (?, ?, ?, ?, ?, ?)");		
 			miSentencia.setInt(1, cuenta.getCamarero().getId());
 			miSentencia.setInt(2, cuenta.getMesa().getId());
-			miSentencia.setDate(3, cuenta.getFecha());
+			miSentencia.setDate(3, Date.valueOf(cuenta.getFecha()));
 			miSentencia.setDouble(4, cuenta.getImporte());
 			miSentencia.setString(5, cuenta.getMetodo_pago());
 			miSentencia.setBoolean(6, cuenta.getPago_recibido());			
@@ -127,7 +128,7 @@ private static PreparedStatement miSentencia;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}*/
+	}
 
 
 public static void insertarDatosPrueba() {

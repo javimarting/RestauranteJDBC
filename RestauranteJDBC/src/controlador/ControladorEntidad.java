@@ -41,16 +41,16 @@ public abstract class ControladorEntidad extends MouseAdapter{
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource() == vistaEntidad.getBtnEliminar()) {			
-			eliminar();			
+		if(e.getSource() == vistaEntidad.getBtnEliminar()) {	
+			try {
+				eliminar();		
+			}catch(ArrayIndexOutOfBoundsException ex) {
+				JOptionPane.showMessageDialog(null, "Debes seleccionar una fila", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		else if(e.getSource() == vistaEntidad.getLblBuscar()) {
-			if(vistaEntidad.getTxtBuscar().isEmpty()) {
-				try {
-					actualizarTabla();
-				}catch(ArrayIndexOutOfBoundsException ex) {
-					JOptionPane.showMessageDialog(null, "Debes seleccionar una fila", "Error", JOptionPane.ERROR_MESSAGE);			
-				}
+			if(vistaEntidad.getTxtBuscar().isEmpty()) {				
+				actualizarTabla();				
 			}else {	
 				try {
 					buscar();	

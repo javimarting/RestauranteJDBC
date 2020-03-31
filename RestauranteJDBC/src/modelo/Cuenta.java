@@ -16,13 +16,13 @@ public class Cuenta extends Entidad{
 		
 	}
 	
-	public Cuenta(Camarero camarero, Mesa mesa) {
+	public Cuenta(Camarero camarero, Mesa mesa, Double importe, String metodo_pago, Boolean pago_recibido) {
 		this.camarero = camarero;
 		this.mesa = mesa;
 		fecha = LocalDate.now();
-		importe = 0.;
-		metodo_pago = "tarjeta";
-		pago_recibido = false;
+		this.importe = importe;
+		this.metodo_pago = metodo_pago;
+		this.pago_recibido = pago_recibido;
 	}
 	
 	
@@ -39,7 +39,7 @@ public class Cuenta extends Entidad{
 		return metodo_pago;
 	}
 
-	public boolean isPago_recibido() {
+	public boolean getPago_recibido() {
 		return pago_recibido;
 	}
 
@@ -76,6 +76,22 @@ public class Cuenta extends Entidad{
 	}
 
 	public Object getColumna(int columna) {
+		switch(columna) {
+		case 0:
+			return id;
+		case 1:
+			return fecha;
+		case 2:
+			return importe;
+		case 3:
+			return metodo_pago;
+		case 4:
+			if(pago_recibido) {
+				return "Sí";
+			}else {
+				return "No";
+			}
+		}
 		return null;
 	}
 	

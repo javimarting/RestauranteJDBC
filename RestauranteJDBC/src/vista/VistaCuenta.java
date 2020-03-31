@@ -2,13 +2,11 @@ package vista;
 
 import java.sql.Date;
 
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
-import modelo.Camarero;
 import modelo.Entidad;
-import modelo.Mesa;
 
 public class VistaCuenta extends VistaEntidad {
 
@@ -18,17 +16,18 @@ public class VistaCuenta extends VistaEntidad {
 	private JLabel lblMesa;
 	private JLabel lblImporte;
 	private JLabel lblMetodoPago;
+	private JLabel lblPagoRecibido;
 	
 	private JComboBox<Entidad> cbCamareros;
 	private JComboBox<Entidad> cbMesas;
+	private JComboBox<String> cbMetodoPago;
 	
-	private JTextField txtNombre;
-	private JTextField txtApellido;
-	private JTextField txtDni;
-	private JTextField txtSueldo;
+	private JTextField txtImporte;
+	private JCheckBox chbPagoRecibido;
+
 	
 	public VistaCuenta() {
-		super("CUENTAS", new String[] {"id", "Fecha", "Importe"}, new String[] {"id", "Camarero"});
+		super("CUENTAS", new String[] {"id", "Fecha", "Importe", "Método pago", "Pago recibido"}, new String[] {"id", "Camarero"});
 		
 		lblCamarero = new JLabel("Camarero");
 		lblCamarero.setBounds(40, 80, 60, 15);
@@ -38,13 +37,17 @@ public class VistaCuenta extends VistaEntidad {
 		lblMesa.setBounds(40, 120, 60, 15);
 		pnlDatos.add(lblMesa);
 		
-		lblImporte = new JLabel("DNI");
+		lblImporte = new JLabel("Importe");
 		lblImporte.setBounds(40, 160, 60, 15);
 		pnlDatos.add(lblImporte);
 		
-		lblMetodoPago = new JLabel("Sueldo");
-		lblMetodoPago.setBounds(40, 200, 60, 15);
+		lblMetodoPago = new JLabel("Método pago");
+		lblMetodoPago.setBounds(30, 200, 90, 15);
 		pnlDatos.add(lblMetodoPago);
+		
+		lblPagoRecibido = new JLabel("Pago recibido");
+		lblPagoRecibido.setBounds(30, 240, 90, 15);
+		pnlDatos.add(lblPagoRecibido);
 		
 		cbCamareros = new JComboBox<>();
 		cbCamareros.setBounds(130, 77, 140, 20);
@@ -54,27 +57,28 @@ public class VistaCuenta extends VistaEntidad {
 		cbMesas.setBounds(130, 117, 140, 20);
 		pnlDatos.add(cbMesas);
 		
-		/*txtNombre = new JTextField();
-		txtNombre.setBounds(130, 77, 140, 20);
-		pnlDatos.add(txtNombre);
+		txtImporte = new JTextField();
+		txtImporte.setBounds(130, 157, 140, 20);
+		pnlDatos.add(txtImporte);
 		
-		txtApellido = new JTextField();
-		txtApellido.setBounds(130, 117, 140, 20);
-		pnlDatos.add(txtApellido);
+		cbMetodoPago = new JComboBox<>(new String[] {"Tarjeta", "Efectivo"});
+		cbMetodoPago.setBounds(130, 197, 140, 20);
+		cbMetodoPago.setSelectedItem(null);
+		pnlDatos.add(cbMetodoPago);
 		
-		txtDni = new JTextField();
-		txtDni.setBounds(130, 157, 140, 20);
-		pnlDatos.add(txtDni);
+		chbPagoRecibido = new JCheckBox();
+		chbPagoRecibido.setBounds(130, 232, 150, 30);
+		pnlDatos.add(chbPagoRecibido);
 		
-		txtSueldo = new JTextField();
-		txtSueldo.setBounds(130, 197, 140, 20);
-		pnlDatos.add(txtSueldo);*/
-		
-		pnlBotonesSecundario.setLocation(115, 350);
+		pnlBotonesSecundario.setLocation(115, 390);
 	}
 	
 	public void vaciarCampos() {
-		
+		cbCamareros.setSelectedItem(null);
+		cbMesas.setSelectedItem(null);
+		txtImporte.setText("");
+		cbMetodoPago.setSelectedItem(null);
+		chbPagoRecibido.setSelected(false);
 	}
 
 	public JComboBox<Entidad> getCbCamareros() {
@@ -83,6 +87,30 @@ public class VistaCuenta extends VistaEntidad {
 
 	public JComboBox<Entidad> getCbMesas() {
 		return cbMesas;
+	}
+
+	public JTextField getTxtImporte() {
+		return txtImporte;
+	}
+
+	public JComboBox<String> getCbMetodoPago() {
+		return cbMetodoPago;
+	}
+
+	public JCheckBox getChbPagoRecibido() {
+		return chbPagoRecibido;
+	}
+
+	public void setChbPagoRecibido(JCheckBox chbPagoRecibido) {
+		this.chbPagoRecibido = chbPagoRecibido;
+	}
+
+	public void setCbMetodoPago(JComboBox<String> cbMetodoPago) {
+		this.cbMetodoPago = cbMetodoPago;
+	}
+
+	public void setTxtImporte(JTextField txtImporte) {
+		this.txtImporte = txtImporte;
 	}
 
 	public void setCbCamareros(JComboBox<Entidad> cbCamareros) {

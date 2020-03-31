@@ -159,7 +159,7 @@ public class SQLConsulta {
 				cuenta.setImporte(rs.getDouble("importe"));
 				cuenta.setMetodo_pago(rs.getString("metodo_pago"));
 				cuenta.setPago_recibido(rs.getBoolean("pago_recibido"));
-				cuenta.setFecha(rs.getDate("fecha").toLocalDate());
+				//cuenta.setFecha(rs.getDate("fecha").toLocalDate());
 				
 				cuentas.add(cuenta);
 			}
