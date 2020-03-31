@@ -36,7 +36,7 @@ public class SQLConsulta {
 			return bebidas;
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			return null;
 		}
@@ -61,7 +61,7 @@ public class SQLConsulta {
 			return platos;
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			return null;
 		}
