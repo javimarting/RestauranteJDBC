@@ -1,9 +1,7 @@
 package controlador;
 
 
-import modelo.Bebida;
 import modelo.Ingrediente;
-import vista.VistaBebida;
 import vista.VistaIngrediente;
 
 public class ControladorIngrediente extends ControladorEntidad{

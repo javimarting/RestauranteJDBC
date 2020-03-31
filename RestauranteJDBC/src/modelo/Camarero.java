@@ -67,4 +67,9 @@ public class Camarero extends Entidad{
 		}
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		return nombre + " " + apellido;
+	}
 }

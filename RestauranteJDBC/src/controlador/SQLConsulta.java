@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import modelo.Bebida;
 import modelo.Camarero;
+import modelo.Cuenta;
 import modelo.Entidad;
 import modelo.Ingrediente;
 import modelo.Mesa;
@@ -134,6 +135,37 @@ public class SQLConsulta {
 			rs.close();
 			miSentencia.close();
 			return mesas;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public  static ArrayList<Entidad> consultarCuentas() {
+		ResultSet rs;
+		ArrayList<Entidad> cuentas = new ArrayList<>();
+		try {
+			miSentencia = SQLConexion.getConexion().prepareStatement("SELECT * FROM cuentas");
+			rs = miSentencia.executeQuery();
+			while(rs.next()) {
+				Cuenta cuenta = new Cuenta();
+				cuenta.setId(rs.getInt("id"));
+				Integer camareroId = rs.getInt("camareroId");
+				cuenta.setCamarero((Camarero)consultarCamarero("id", String.valueOf(camareroId)).get(0));		
+				Integer mesaId = rs.getInt("mesaId");
+				cuenta.setMesa((Mesa)consultarMesa("id", String.valueOf(mesaId)).get(0));
+				cuenta.setImporte(rs.getDouble("importe"));
+				cuenta.setMetodo_pago(rs.getString("metodo_pago"));
+				cuenta.setPago_recibido(rs.getBoolean("pago_recibido"));
+				cuenta.setFecha(rs.getDate("fecha").toLocalDate());
+				
+				cuentas.add(cuenta);
+			}
+			rs.close();
+			miSentencia.close();
+			return cuentas;
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -30,5 +30,8 @@ public class Mesa extends Entidad{
 		this.num_personas = num_personas;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return id + " --> " + num_personas + " personas";
+	}
 }

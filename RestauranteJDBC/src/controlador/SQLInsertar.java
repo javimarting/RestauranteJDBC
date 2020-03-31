@@ -158,7 +158,7 @@ public static void insertarDatosPrueba() {
 	
 	for(Mesa mesa : mesas_prueba) {
 		insertarMesa(mesa);
-		//mesa.setId(SQLConsultarTabla.consultarMesaId(mesa));
+		//mesa.setId(SQLConsultarTabla.consultarMesa("id", ));
 	}
 	
 	//Cuentas prueba

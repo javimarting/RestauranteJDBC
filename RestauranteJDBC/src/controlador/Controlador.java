@@ -8,19 +8,26 @@ import vista.MainFrame;
 public class Controlador extends MouseAdapter{
 
 	private MainFrame frame;
-	
+	private ControladorEntidad controladorCuenta;
+	private ControladorEntidad controladorBebida;
+	private ControladorEntidad controladorCamarero;
+	private ControladorEntidad controladorIngrediente;
+	private ControladorEntidad controladorPlato;
+	private ControladorEntidad controladorMesa;
 	public Controlador(MainFrame frame) {
 		this.frame = frame;
-		ControladorEntidad controladorBebida = new ControladorBebida(frame.getVistaBebida());
+		controladorBebida = new ControladorBebida(frame.getVistaBebida());
 		frame.getVistaBebida().conectarControlador(controladorBebida);
-		ControladorEntidad controladorCamarero = new ControladorCamarero(frame.getVistaCamarero());
+		controladorCamarero = new ControladorCamarero(frame.getVistaCamarero());
 		frame.getVistaCamarero().conectarControlador(controladorCamarero);
-		ControladorEntidad controladorIngrediente = new ControladorIngrediente(frame.getVistaIngrediente());
+		controladorIngrediente = new ControladorIngrediente(frame.getVistaIngrediente());
 		frame.getVistaIngrediente().conectarControlador(controladorIngrediente);
-		ControladorEntidad controladorPlato = new ControladorPlato(frame.getVistaPlato());
+		controladorPlato = new ControladorPlato(frame.getVistaPlato());
 		frame.getVistaPlato().conectarControlador(controladorPlato);
-		ControladorEntidad controladorMesa = new ControladorMesa(frame.getVistaMesa());
+		controladorMesa = new ControladorMesa(frame.getVistaMesa());
 		frame.getVistaMesa().conectarControlador(controladorMesa);
+		controladorCuenta = new ControladorCuenta(frame.getVistaCuenta());
+		frame.getVistaCuenta().conectarControlador(controladorCuenta);
 		
 		frame.mostrarVista(frame.getVistaHome());
 		frame.setVisible(true);
@@ -32,26 +39,27 @@ public class Controlador extends MouseAdapter{
 		}
 		else if(e.getSource() == frame.getVistaMenu().getPnlBebidas()){
 			frame.mostrarVista(frame.getVistaBebida());
-			frame.getVistaBebida().getModeloTabla().setFilas(SQLConsulta.consultarBebidas());
+			controladorBebida.actualizarTabla();
 		}
 		else if(e.getSource() == frame.getVistaMenu().getPnlPlatos()){
 			frame.mostrarVista(frame.getVistaPlato());
-			frame.getVistaPlato().getModeloTabla().setFilas(SQLConsulta.consultarPlatos());
+			controladorPlato.actualizarTabla();
 		}
 		else if(e.getSource() == frame.getVistaMenu().getPnlIngredientes()){
 			frame.mostrarVista(frame.getVistaIngrediente());
-			frame.getVistaIngrediente().getModeloTabla().setFilas(SQLConsulta.consultarIngredientes());
+			controladorIngrediente.actualizarTabla();
 		}
 		else if(e.getSource() == frame.getVistaMenu().getPnlCamareros()){
 			frame.mostrarVista(frame.getVistaCamarero());
-			frame.getVistaCamarero().getModeloTabla().setFilas(SQLConsulta.consultarCamareros());
+			controladorCamarero.actualizarTabla();
 		}
 		else if(e.getSource() == frame.getVistaMenu().getPnlMesas()){
 			frame.mostrarVista(frame.getVistaMesa());
-			frame.getVistaMesa().getModeloTabla().setFilas(SQLConsulta.consultarMesas());
+			controladorMesa.actualizarTabla();
 		}
 		else if(e.getSource() == frame.getVistaMenu().getPnlCuentas()){
 			frame.mostrarVista(frame.getVistaCuenta());
+			controladorCuenta.actualizarTabla();
 			//frame.getVistaCuenta().getModeloTabla().setFilas(SQLConsulta.consultarCuentas());
 		}
 		else if(e.getSource() == frame.getVistaHome().getBotonCrearTablas()) {

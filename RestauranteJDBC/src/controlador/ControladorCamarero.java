@@ -1,10 +1,7 @@
 package controlador;
 
-import javax.swing.JOptionPane;
 
-import modelo.Bebida;
 import modelo.Camarero;
-import vista.VistaBebida;
 import vista.VistaCamarero;
 
 public class ControladorCamarero extends ControladorEntidad{

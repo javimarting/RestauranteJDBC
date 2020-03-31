@@ -1,8 +1,6 @@
 package controlador;
 
-import modelo.Bebida;
 import modelo.Plato;
-import vista.VistaBebida;
 import vista.VistaPlato;
 
 public class ControladorPlato extends ControladorEntidad{
@@ -29,7 +27,7 @@ public class ControladorPlato extends ControladorEntidad{
 	public void cargarCampos() {
 		Plato plato = (Plato)vistaEntidad.getEntidadSeleccionada();
 		((VistaPlato) vistaEntidad).getTxtNombre().setText((plato.getNombre()));
-		((VistaBebida) vistaEntidad).getTxtPrecio().setText(String.valueOf((plato.getPrecio())));
+		((VistaPlato) vistaEntidad).getTxtPrecio().setText(String.valueOf((plato.getPrecio())));
 	}
 	
 	public Plato getEntidadModificada() {
