@@ -11,8 +11,7 @@ public class App {
 		new SQLConexion();
 		MainFrame frame = new MainFrame();
 		Controlador controlador = new Controlador(frame);
-		frame.conectarControlador(controlador);	
-		
+		frame.conectarControlador(controlador);
 	}
 
 }

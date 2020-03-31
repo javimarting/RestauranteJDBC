@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
+import modelo.Entidad;
 import vista.VistaEntidad;
 
 public abstract class ControladorEntidad extends MouseAdapter{
@@ -12,15 +13,24 @@ public abstract class ControladorEntidad extends MouseAdapter{
 	protected VistaEntidad vistaEntidad;
 	
 	public ControladorEntidad(VistaEntidad vistaEntidad) {
-		this.vistaEntidad = vistaEntidad;		
+		this.vistaEntidad = vistaEntidad;
+		this.vistaEntidad.mostrarPnlPrincipal();
 	}
 	
 	public abstract void actualizarTabla();
 	public abstract void buscar();
+	public abstract Entidad getEntidad();
 	
 	public void eliminar() {
 		SQLEliminar.eliminar(vistaEntidad.getEntidadSeleccionada());
 		actualizarTabla();			
+	}
+	
+	public void insertar() {
+		SQLInsertar.insertar(getEntidad());
+		actualizarTabla();
+		vistaEntidad.vaciarCampos();
+		vistaEntidad.mostrarPnlPrincipal();
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -42,6 +52,19 @@ public abstract class ControladorEntidad extends MouseAdapter{
 				}catch(NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "El valor introducido no es válido", "Error", JOptionPane.ERROR_MESSAGE);
 				}
+			}
+		}
+		else if(e.getSource() == vistaEntidad.getBtnInsertar()) {
+			vistaEntidad.mostrarPnlInsertar();
+		}
+		else if(e.getSource() == vistaEntidad.getBtnCancelar()) {
+			vistaEntidad.mostrarPnlPrincipal();
+		}
+		else if(e.getSource() == vistaEntidad.getBtnAceptarInsertar()) {
+			try {
+				insertar();
+			}catch(NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null, "Alguno de los valores no es válido", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		

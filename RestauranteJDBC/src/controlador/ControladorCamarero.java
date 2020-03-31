@@ -2,6 +2,9 @@ package controlador;
 
 import javax.swing.JOptionPane;
 
+import modelo.Bebida;
+import modelo.Camarero;
+import vista.VistaBebida;
 import vista.VistaCamarero;
 
 public class ControladorCamarero extends ControladorEntidad{
@@ -20,5 +23,14 @@ public class ControladorCamarero extends ControladorEntidad{
 		String texto = vistaEntidad.getTxtBuscar();
 		vistaEntidad.getModeloTabla().setFilas(SQLConsulta.consultarCamarero(opcion, texto));
 		
+	}
+	
+	public Camarero getEntidad() {
+		String nombre = ((VistaCamarero) vistaEntidad).getTxtNombre().getText();
+		String apellido = ((VistaCamarero) vistaEntidad).getTxtApellido().getText();
+		String dni = ((VistaCamarero) vistaEntidad).getTxtDni().getText();
+		Integer sueldo = Integer.valueOf(((VistaCamarero) vistaEntidad).getTxtSueldo().getText());
+		Camarero camarero = new Camarero(nombre, apellido, dni, sueldo);
+		return camarero;
 	}
 }

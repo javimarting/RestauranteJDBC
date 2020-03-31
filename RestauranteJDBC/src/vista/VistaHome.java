@@ -23,7 +23,7 @@ public class VistaHome extends JPanel {
 	
 	public VistaHome() {
 		
-		setBackground(new Color(130, 171, 212));
+		setOpaque(false);
 		setBounds(170, 0, 530, 578);
 		setLayout(null);
 		

@@ -1,5 +1,8 @@
 package controlador;
 
+import modelo.Bebida;
+import modelo.Ingrediente;
+import vista.VistaBebida;
 import vista.VistaIngrediente;
 
 public class ControladorIngrediente extends ControladorEntidad{
@@ -14,5 +17,12 @@ public class ControladorIngrediente extends ControladorEntidad{
 	
 	public void buscar() {
 		vistaEntidad.getModeloTabla().setFilas(SQLConsulta.consultarIngrediente(vistaEntidad.getOpcionBuscar(), vistaEntidad.getTxtBuscar()));
+	}
+	
+	public Ingrediente getEntidad() {
+		String nombre = ((VistaIngrediente) vistaEntidad).getTxtNombre().getText();
+		Double precio = Double.valueOf(((VistaIngrediente) vistaEntidad).getTxtPrecio().getText());
+		Ingrediente ingrediente = new Ingrediente(nombre, precio);
+		return ingrediente;
 	}
 }

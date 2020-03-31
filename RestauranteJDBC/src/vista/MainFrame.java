@@ -1,6 +1,8 @@
 package vista;
 
 
+import java.awt.Color;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -28,6 +30,7 @@ public class MainFrame extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
+		contentPane.setBackground(new Color(130, 171, 212));
 		setContentPane(contentPane);
 		setLocationRelativeTo(null);
 		setResizable(false);

@@ -27,14 +27,21 @@ public abstract class VistaEntidad extends JPanel {
 
 	
 	private static final long serialVersionUID = -5506562014929062558L;
+	private JPanel pnlPrincipal;
+	private JPanel pnlSecundario;
 	private JScrollPane scroll;
 	protected ModeloTabla modeloTabla;
 	private JTable tabla;
 	private JLabel lblTitulo;
-	private JPanel pnlBotones;
+	private JPanel pnlBotonesPrincipal;
+	protected JPanel pnlBotonesSecundario;
+	protected JPanel pnlDatos;
 	private JButton btnInsertar;
 	private JButton btnModificar;
 	private JButton btnEliminar;
+	private JButton btnAceptarInsertar;
+	private JButton btnAceptarModificar;
+	private JButton btnCancelar;
 	private JPanel pnlBuscar;
 	private JTextField txtBuscar;
 	private JLabel lblBuscar;
@@ -45,15 +52,28 @@ public abstract class VistaEntidad extends JPanel {
 	
 	
 	public VistaEntidad(String titulo, String[] columnas, String[] opciones) {
-		setBackground(new Color(130, 171, 212));
+		setOpaque(false);
 		setBounds(170, 0, 530, 578);
 		setLayout(null);
+		
+		pnlPrincipal = new JPanel();
+		pnlPrincipal.setBounds(0, 0, 530, 578);
+		pnlPrincipal.setLayout(null);
+		pnlPrincipal.setOpaque(false);
+		add(pnlPrincipal);
+		
+		pnlSecundario = new JPanel();
+		pnlSecundario.setBounds(0, 0, 530, 578);
+		pnlSecundario.setLayout(null);
+		pnlSecundario.setOpaque(false);
+		add(pnlSecundario);	
+		
 		
 		scroll = new JScrollPane();
 		modeloTabla = new ModeloTabla(columnas);
         tabla = new JTable(modeloTabla);        
         scroll.setViewportView(tabla); 
-        add(scroll);
+        pnlPrincipal.add(scroll);
 		scroll.setBounds(19, 130, 492, 360);
 		
 		lblTitulo = new JLabel(titulo);
@@ -61,26 +81,47 @@ public abstract class VistaEntidad extends JPanel {
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setBounds(185, 42, 160, 30);
-		add(lblTitulo);
+		pnlPrincipal.add(lblTitulo);
 		
-		pnlBotones = new JPanel();
-		pnlBotones.setOpaque(false);
-		pnlBotones.setBounds(19, 512, 492, 42);
-		pnlBotones.setLayout(null);
-		add(pnlBotones);
+		pnlBotonesPrincipal = new JPanel();
+		pnlBotonesPrincipal.setOpaque(false);
+		pnlBotonesPrincipal.setBounds(19, 512, 492, 42);
+		pnlBotonesPrincipal.setLayout(null);
+		pnlPrincipal.add(pnlBotonesPrincipal);
 		
 		btnInsertar = new JButton("INSERTAR");
-		crearBoton(btnInsertar, 26, 6, pnlBotones);
+		crearBoton(btnInsertar, 26, 6, pnlBotonesPrincipal);
 		
 		btnModificar = new JButton("MODIFICAR");
-		crearBoton(btnModificar, 187, 6, pnlBotones);
+		crearBoton(btnModificar, 187, 6, pnlBotonesPrincipal);
 		
 		btnEliminar = new JButton("ELIMINAR");
-		crearBoton(btnEliminar, 348, 6, pnlBotones);
+		crearBoton(btnEliminar, 348, 6, pnlBotonesPrincipal);
+		
+		pnlBotonesSecundario = new JPanel();
+		pnlBotonesSecundario.setOpaque(false);
+		pnlBotonesSecundario.setBounds(115, 330, 300, 42);
+		pnlBotonesSecundario.setLayout(null);
+		pnlSecundario.add(pnlBotonesSecundario);
+		
+		btnAceptarInsertar = new JButton("ACEPTAR");
+		crearBoton(btnAceptarInsertar, 16, 6, pnlBotonesSecundario);
+		
+		btnAceptarModificar = new JButton("ACEPTAR");
+		crearBoton(btnAceptarModificar, 16, 6, pnlBotonesSecundario);
+		
+		btnCancelar = new JButton("CANCELAR");
+		crearBoton(btnCancelar, 166, 6, pnlBotonesSecundario);
+		
+		pnlDatos = new JPanel();
+		pnlDatos.setOpaque(false);
+		pnlDatos.setBounds(115, 110, 295, 260);
+		pnlDatos.setLayout(null);
+		pnlSecundario.add(pnlDatos);
 		
 		pnlBuscar = new JPanel();
 		pnlBuscar.setBounds(19, 96, 310, 30);
-		add(pnlBuscar);
+		pnlPrincipal.add(pnlBuscar);
 		pnlBuscar.setLayout(null);
 		
 		cbBuscar = new JComboBox<>(opciones);
@@ -97,13 +138,23 @@ public abstract class VistaEntidad extends JPanel {
 		lblBuscar.setBounds(235, 7, 61, 16);
 		lblBuscar.setIcon(new ImageIcon(img_buscar));
 		pnlBuscar.add(lblBuscar);
-		mouseListen(lblBuscar);
-		
-		
+		mouseListen(lblBuscar);		
 		
 	}
 	
 	//Getters
+	public JPanel getPnlPrincipal() {
+		return pnlPrincipal;
+	}
+	
+	public JPanel getPnlSecundario() {
+		return pnlSecundario;
+	}
+	
+	public JPanel getPnlDatos() {
+		return pnlDatos;
+	}
+	
 	public ModeloTabla getModeloTabla() {
 		return modeloTabla;
 	}
@@ -124,6 +175,14 @@ public abstract class VistaEntidad extends JPanel {
 		return btnEliminar;
 	}
 	
+	public JButton getBtnCancelar() {
+		return btnCancelar;
+	}
+	
+	public JButton getBtnAceptarInsertar() {
+		return btnAceptarInsertar;
+	}
+	
 	public JLabel getLblBuscar() {
 		return lblBuscar;
 	}
@@ -139,6 +198,7 @@ public abstract class VistaEntidad extends JPanel {
 		return txtBuscar.getText();
 	}
 	
+	public abstract void vaciarCampos();
 
 	public void crearBoton(JButton boton, int x, int y, JPanel panel) {
 		boton.setOpaque(true);
@@ -168,7 +228,29 @@ public abstract class VistaEntidad extends JPanel {
 		btnInsertar.addMouseListener(c);
 		btnModificar.addMouseListener(c);
 		btnEliminar.addMouseListener(c);
+		btnCancelar.addMouseListener(c);
+		btnAceptarInsertar.addMouseListener(c);
+		btnAceptarModificar.addMouseListener(c);
 		lblBuscar.addMouseListener(c);
+	}
+	
+	public void mostrarPnlPrincipal() {
+		pnlPrincipal.setVisible(true);
+		pnlSecundario.setVisible(false);
+	}
+	
+	public void mostrarPnlInsertar() {
+		pnlPrincipal.setVisible(false);
+		pnlSecundario.setVisible(true);
+		btnAceptarInsertar.setVisible(true);
+		btnAceptarModificar.setVisible(false);
+	}
+	
+	public void mostrarPnlModificar() {
+		pnlPrincipal.setVisible(false);
+		pnlSecundario.setVisible(true);
+		btnAceptarInsertar.setVisible(false);
+		btnAceptarModificar.setVisible(true);
 	}
 	
 	public class ModeloTabla extends AbstractTableModel{
