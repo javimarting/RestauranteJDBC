@@ -23,6 +23,7 @@ public class Controlador extends MouseAdapter{
 		frame.getVistaMesa().conectarControlador(controladorMesa);
 		
 		frame.mostrarVista(frame.getVistaHome());
+		frame.setVisible(true);
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -48,6 +49,10 @@ public class Controlador extends MouseAdapter{
 		else if(e.getSource() == frame.getVistaMenu().getPnlMesas()){
 			frame.mostrarVista(frame.getVistaMesa());
 			frame.getVistaMesa().getModeloTabla().setFilas(SQLConsulta.consultarMesas());
+		}
+		else if(e.getSource() == frame.getVistaMenu().getPnlCuentas()){
+			frame.mostrarVista(frame.getVistaCuenta());
+			//frame.getVistaCuenta().getModeloTabla().setFilas(SQLConsulta.consultarCuentas());
 		}
 		else if(e.getSource() == frame.getVistaHome().getBotonCrearTablas()) {
 			SQLCrearTablas.crearTablas();
