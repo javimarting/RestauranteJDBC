@@ -183,6 +183,10 @@ public abstract class VistaEntidad extends JPanel {
 		return btnAceptarInsertar;
 	}
 	
+	public JButton getBtnAceptarModificar() {
+		return btnAceptarModificar;
+	}
+	
 	public JLabel getLblBuscar() {
 		return lblBuscar;
 	}
@@ -237,6 +241,7 @@ public abstract class VistaEntidad extends JPanel {
 	public void mostrarPnlPrincipal() {
 		pnlPrincipal.setVisible(true);
 		pnlSecundario.setVisible(false);
+		vaciarCampos();
 	}
 	
 	public void mostrarPnlInsertar() {

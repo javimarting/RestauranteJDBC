@@ -55,4 +55,5 @@ public class VistaBebida extends VistaEntidad {
 		txtPrecio.setText("");
 	}
 	
+	
 }

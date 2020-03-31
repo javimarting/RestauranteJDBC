@@ -1,6 +1,8 @@
 package controlador;
 
+import modelo.Bebida;
 import modelo.Mesa;
+import vista.VistaBebida;
 import vista.VistaMesa;
 
 public class ControladorMesa extends ControladorEntidad{
@@ -20,6 +22,18 @@ public class ControladorMesa extends ControladorEntidad{
 	public Mesa getEntidad() {
 		Integer num_personas = Integer.valueOf(((VistaMesa)vistaEntidad).getTxtNumPersonas().getText());
 		Mesa mesa = new Mesa(num_personas);
+		return mesa;
+	}
+	
+	public void cargarCampos() {
+		Mesa mesa = (Mesa)vistaEntidad.getEntidadSeleccionada();
+		((VistaMesa) vistaEntidad).getTxtNumPersonas().setText(String.valueOf((mesa.getNumPersonas())));
+	}
+	
+	public Mesa getEntidadModificada() {
+		Mesa mesa = (Mesa)vistaEntidad.getEntidadSeleccionada();
+		Integer num_personas = Integer.valueOf(((VistaMesa) vistaEntidad).getTxtNumPersonas().getText());
+		mesa.setNumPersonas(num_personas);
 		return mesa;
 	}
 }

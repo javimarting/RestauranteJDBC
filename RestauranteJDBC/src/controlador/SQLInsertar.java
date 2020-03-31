@@ -190,7 +190,7 @@ public static void insertarDatosPrueba() {
 	}
 	
 	//Ingredientes prueba
-	Ingrediente ingrediente1 = new Ingrediente("zanahoria", 2.5);
+	Ingrediente ingrediente1 = new Ingrediente("Queso", 2.5);
 	Ingrediente ingrediente2 = new Ingrediente("Tomate", 1.5);
 	
 	ArrayList<Ingrediente> ingredientes_prueba = new ArrayList<>();
@@ -203,8 +203,8 @@ public static void insertarDatosPrueba() {
 	}
 	
 	//Platos prueba
-	Plato plato1 = new Plato("Hamburguesa", 15.);
-	Plato plato2 = new Plato("Ensalada César", 10.);
+	Plato plato1 = new Plato("Ensalada", 10.);
+	Plato plato2 = new Plato("Hamburguesa", 15.);
 	
 	ArrayList<Plato> platos_prueba = new ArrayList<>();
 	

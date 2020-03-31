@@ -20,6 +20,8 @@ public abstract class ControladorEntidad extends MouseAdapter{
 	public abstract void actualizarTabla();
 	public abstract void buscar();
 	public abstract Entidad getEntidad();
+	public abstract void cargarCampos();
+	public abstract Entidad getEntidadModificada();
 	
 	public void eliminar() {
 		SQLEliminar.eliminar(vistaEntidad.getEntidadSeleccionada());
@@ -29,7 +31,12 @@ public abstract class ControladorEntidad extends MouseAdapter{
 	public void insertar() {
 		SQLInsertar.insertar(getEntidad());
 		actualizarTabla();
-		vistaEntidad.vaciarCampos();
+		vistaEntidad.mostrarPnlPrincipal();
+	}
+	
+	public void modificar() {
+		SQLModificar.modificar(getEntidadModificada());
+		actualizarTabla();
 		vistaEntidad.mostrarPnlPrincipal();
 	}
 	
@@ -60,9 +67,24 @@ public abstract class ControladorEntidad extends MouseAdapter{
 		else if(e.getSource() == vistaEntidad.getBtnCancelar()) {
 			vistaEntidad.mostrarPnlPrincipal();
 		}
+		else if(e.getSource() == vistaEntidad.getBtnModificar()) {
+			try {
+				cargarCampos();
+				vistaEntidad.mostrarPnlModificar();
+			}catch(ArrayIndexOutOfBoundsException ex) {
+				JOptionPane.showMessageDialog(null, "Debes seleccionar una fila", "Error", JOptionPane.ERROR_MESSAGE);			
+			}
+		}
 		else if(e.getSource() == vistaEntidad.getBtnAceptarInsertar()) {
 			try {
 				insertar();
+			}catch(NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null, "Alguno de los valores no es válido", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		else if(e.getSource() == vistaEntidad.getBtnAceptarModificar()) {
+			try {
+				modificar();
 			}catch(NumberFormatException ex) {
 				JOptionPane.showMessageDialog(null, "Alguno de los valores no es válido", "Error", JOptionPane.ERROR_MESSAGE);
 			}

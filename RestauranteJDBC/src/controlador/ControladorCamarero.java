@@ -17,12 +17,10 @@ public class ControladorCamarero extends ControladorEntidad{
 		vistaEntidad.getModeloTabla().setFilas(SQLConsulta.consultarCamareros());
 	}
 	
-	public void buscar() {
-		
+	public void buscar() {		
 		String opcion = vistaEntidad.getOpcionBuscar();
 		String texto = vistaEntidad.getTxtBuscar();
-		vistaEntidad.getModeloTabla().setFilas(SQLConsulta.consultarCamarero(opcion, texto));
-		
+		vistaEntidad.getModeloTabla().setFilas(SQLConsulta.consultarCamarero(opcion, texto));		
 	}
 	
 	public Camarero getEntidad() {
@@ -31,6 +29,27 @@ public class ControladorCamarero extends ControladorEntidad{
 		String dni = ((VistaCamarero) vistaEntidad).getTxtDni().getText();
 		Integer sueldo = Integer.valueOf(((VistaCamarero) vistaEntidad).getTxtSueldo().getText());
 		Camarero camarero = new Camarero(nombre, apellido, dni, sueldo);
+		return camarero;
+	}
+	
+	public void cargarCampos() {
+		Camarero camarero = (Camarero)vistaEntidad.getEntidadSeleccionada();
+		((VistaCamarero) vistaEntidad).getTxtNombre().setText((camarero.getNombre()));
+		((VistaCamarero) vistaEntidad).getTxtApellido().setText((camarero.getApellido()));
+		((VistaCamarero) vistaEntidad).getTxtDni().setText((camarero.getDni()));
+		((VistaCamarero) vistaEntidad).getTxtSueldo().setText(String.valueOf((camarero.getSueldo())));
+	}
+	
+	public Camarero getEntidadModificada() {
+		Camarero camarero = (Camarero)vistaEntidad.getEntidadSeleccionada();
+		String nombre = ((VistaCamarero) vistaEntidad).getTxtNombre().getText();
+		String apellido = ((VistaCamarero) vistaEntidad).getTxtApellido().getText();
+		String dni = ((VistaCamarero) vistaEntidad).getTxtDni().getText();
+		Integer sueldo = Integer.valueOf(((VistaCamarero) vistaEntidad).getTxtSueldo().getText());
+		camarero.setNombre(nombre);
+		camarero.setApellido(apellido);
+		camarero.setDni(dni);
+		camarero.setSueldo(sueldo);
 		return camarero;
 	}
 }

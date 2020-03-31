@@ -1,5 +1,6 @@
 package controlador;
 
+
 import modelo.Bebida;
 import modelo.Ingrediente;
 import vista.VistaBebida;
@@ -23,6 +24,21 @@ public class ControladorIngrediente extends ControladorEntidad{
 		String nombre = ((VistaIngrediente) vistaEntidad).getTxtNombre().getText();
 		Double precio = Double.valueOf(((VistaIngrediente) vistaEntidad).getTxtPrecio().getText());
 		Ingrediente ingrediente = new Ingrediente(nombre, precio);
+		return ingrediente;
+	}
+	
+	public void cargarCampos() {
+		Ingrediente ingrediente = (Ingrediente)vistaEntidad.getEntidadSeleccionada();
+		((VistaIngrediente) vistaEntidad).getTxtNombre().setText((ingrediente.getNombre()));
+		((VistaIngrediente) vistaEntidad).getTxtPrecio().setText(String.valueOf((ingrediente.getPrecio())));
+	}
+	
+	public Ingrediente getEntidadModificada() {
+		Ingrediente ingrediente = (Ingrediente)vistaEntidad.getEntidadSeleccionada();
+		String nombre = ((VistaIngrediente) vistaEntidad).getTxtNombre().getText();
+		Double precio = Double.valueOf(((VistaIngrediente) vistaEntidad).getTxtPrecio().getText());
+		ingrediente.setNombre(nombre);
+		ingrediente.setPrecio(precio);
 		return ingrediente;
 	}
 }
