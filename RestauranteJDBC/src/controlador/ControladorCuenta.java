@@ -6,7 +6,6 @@ import modelo.Camarero;
 import modelo.Cuenta;
 import modelo.Entidad;
 import modelo.Mesa;
-import vista.VistaCamarero;
 import vista.VistaCuenta;
 
 public class ControladorCuenta extends ControladorEntidad{
@@ -22,15 +21,27 @@ public class ControladorCuenta extends ControladorEntidad{
 	}
 	
 	public void cargarCampos() {
-		/*Cuenta cuenta = (Cuenta)vistaEntidad.getEntidadSeleccionada();
-		((VistaCuenta) vistaEntidad).getTxtNombre().setText((camarero.getNombre()));
-		((VistaCuenta) vistaEntidad).getTxtApellido().setText((camarero.getApellido()));
-		((VistaCuenta) vistaEntidad).getTxtDni().setText((camarero.getDni()));
-		((VistaCuenta) vistaEntidad).getTxtSueldo().setText(String.valueOf((camarero.getSueldo())));*/
+		Cuenta cuenta = (Cuenta)vistaEntidad.getEntidadSeleccionada();
+		((VistaCuenta) vistaEntidad).getCbCamareros().setSelectedItem(cuenta.getCamarero());
+		((VistaCuenta) vistaEntidad).getCbMesas().setSelectedItem(cuenta.getMesa());
+		((VistaCuenta) vistaEntidad).getTxtImporte().setText(String.valueOf(cuenta.getImporte()));
+		((VistaCuenta) vistaEntidad).getCbMetodoPago().setSelectedItem(cuenta.getMetodo_pago());
+		((VistaCuenta) vistaEntidad).getChbPagoRecibido().setSelected(cuenta.getPago_recibido());
 	}
 	
 	public Cuenta getEntidadModificada() {
-		return null;
+		Cuenta cuenta = (Cuenta)vistaEntidad.getEntidadSeleccionada();
+		Camarero camarero = (Camarero)((VistaCuenta) vistaEntidad).getCbCamareros().getSelectedItem();
+		Mesa mesa = (Mesa)((VistaCuenta) vistaEntidad).getCbMesas().getSelectedItem();
+		Double importe = Double.valueOf(((VistaCuenta)vistaEntidad).getTxtImporte().getText());
+		String metodo_pago = (String)((VistaCuenta)vistaEntidad).getCbMetodoPago().getSelectedItem();
+		Boolean pago_recibido = ((VistaCuenta)vistaEntidad).getChbPagoRecibido().isSelected();
+		cuenta.setCamarero(camarero);
+		cuenta.setMesa(mesa);
+		cuenta.setImporte(importe);
+		cuenta.setMetodo_pago(metodo_pago);
+		cuenta.setPago_recibido(pago_recibido);
+		return cuenta;
 	}
 	
 	public Cuenta getEntidad() {
@@ -44,7 +55,9 @@ public class ControladorCuenta extends ControladorEntidad{
 	}
 	
 	public void buscar() {
-		
+		String opcion = vistaEntidad.getOpcionBuscar();
+		String texto = vistaEntidad.getTxtBuscar();
+		vistaEntidad.getModeloTabla().setFilas(SQLConsulta.consultarCuenta(opcion, texto));
 	}
 	
 	public void cargarCamareros() {

@@ -208,6 +208,37 @@ public class SQLConsulta {
 		}
 	}
 	
+	public static ArrayList<Entidad> consultarCuenta(String opcion, String valor) {
+		ResultSet rs;
+		ArrayList<Entidad> cuentas = new ArrayList<>();
+		String consulta = "SELECT * FROM cuentas WHERE "+opcion+" = ?";
+		try {
+			miSentencia = SQLConexion.getConexion().prepareStatement(consulta);
+			if(opcion == "id") {
+				miSentencia.setInt(1, Integer.valueOf(valor));
+			}
+			
+			rs = miSentencia.executeQuery();
+			
+			while(rs.next()) {
+				Cuenta cuenta = new Cuenta();
+				cuenta.setCamarero((Camarero)consultarCamarero("id", String.valueOf(rs.getInt("camareroId"))).get(0));
+				cuenta.setMesa((Mesa)consultarMesa("id", String.valueOf(rs.getInt("mesaId"))).get(0));
+				cuenta.setImporte(rs.getDouble("importe"));
+				cuenta.setMetodo_pago(rs.getString("metodo_pago"));
+				cuenta.setPago_recibido(rs.getBoolean("pago_recibido"));
+				
+				cuentas.add(cuenta);
+			}
+			
+			rs.close();
+			miSentencia.close();
+			return cuentas;
+		}catch(SQLException e) {
+			return null;
+		}
+	}
+	
 	public static ArrayList<Entidad> consultarBebida(String opcion, String valor) {
 		ResultSet rs;
 		ArrayList<Entidad> bebidas = new ArrayList<>();

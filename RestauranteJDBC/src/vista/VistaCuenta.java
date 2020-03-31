@@ -27,7 +27,7 @@ public class VistaCuenta extends VistaEntidad {
 
 	
 	public VistaCuenta() {
-		super("CUENTAS", new String[] {"id", "Fecha", "Importe", "Método pago", "Pago recibido"}, new String[] {"id", "Camarero"});
+		super("CUENTAS", new String[] {"id", "Camarero", "Mesa", "Importe", "Método pago", "Pago recibido"}, new String[] {"id", "Camarero"});
 		
 		lblCamarero = new JLabel("Camarero");
 		lblCamarero.setBounds(40, 80, 60, 15);

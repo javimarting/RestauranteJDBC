@@ -26,7 +26,7 @@ private static PreparedStatement miSentencia;
 				eliminarPlato(entidad.getId());
 			}
 			else if(Cuenta.class.isInstance(entidad)) {
-				//eliminarCuenta(entidad.getId());
+				eliminarCuenta(entidad.getId());
 			}
 			else if(Mesa.class.isInstance(entidad)) {
 				eliminarMesa(entidad.getId());
@@ -40,7 +40,20 @@ private static PreparedStatement miSentencia;
 	
 	public static void eliminarCamarero(Integer id) {
 		try {
-			miSentencia = SQLConexion.getConexion().prepareStatement("DELETE FROM Camareros WHERE id = (?)");
+			miSentencia = SQLConexion.getConexion().prepareStatement("DELETE FROM camareros WHERE id = (?)");
+			miSentencia.setInt(1, id);
+			miSentencia.executeUpdate();
+			miSentencia.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void eliminarCuenta(Integer id) {
+		try {
+			miSentencia = SQLConexion.getConexion().prepareStatement("DELETE FROM cuentas WHERE id = (?)");
 			miSentencia.setInt(1, id);
 			miSentencia.executeUpdate();
 			miSentencia.close();
@@ -53,7 +66,7 @@ private static PreparedStatement miSentencia;
 	
 	public static void eliminarBebida(Integer id) {
 		try {
-			miSentencia = SQLConexion.getConexion().prepareStatement("DELETE FROM Bebidas WHERE id = (?)");
+			miSentencia = SQLConexion.getConexion().prepareStatement("DELETE FROM bebidas WHERE id = (?)");
 			miSentencia.setInt(1, id);
 			miSentencia.executeUpdate();
 			miSentencia.close();
@@ -65,7 +78,7 @@ private static PreparedStatement miSentencia;
 	
 	public static void eliminarIngrediente(Integer id) {
 		try {
-			miSentencia = SQLConexion.getConexion().prepareStatement("DELETE FROM Ingredientes WHERE id = (?)");
+			miSentencia = SQLConexion.getConexion().prepareStatement("DELETE FROM ingredientes WHERE id = (?)");
 			miSentencia.setInt(1, id);
 			miSentencia.executeUpdate();
 			miSentencia.close();
@@ -77,7 +90,7 @@ private static PreparedStatement miSentencia;
 	
 	public static void eliminarMesa(Integer id) {
 		try {
-			miSentencia = SQLConexion.getConexion().prepareStatement("DELETE FROM Mesas WHERE id = (?)");
+			miSentencia = SQLConexion.getConexion().prepareStatement("DELETE FROM mesas WHERE id = (?)");
 			miSentencia.setInt(1, id);
 			miSentencia.executeUpdate();
 			miSentencia.close();
@@ -89,7 +102,7 @@ private static PreparedStatement miSentencia;
 	
 	public static void eliminarPlato(Integer id) {
 		try {
-			miSentencia = SQLConexion.getConexion().prepareStatement("DELETE FROM Platos WHERE id = (?)");
+			miSentencia = SQLConexion.getConexion().prepareStatement("DELETE FROM platos WHERE id = (?)");
 			miSentencia.setInt(1, id);
 			miSentencia.executeUpdate();
 			miSentencia.close();

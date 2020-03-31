@@ -26,7 +26,7 @@ private static PreparedStatement miSentencia;
 			modificarPlato((Plato)entidad);
 		}
 		else if(Cuenta.class.isInstance(entidad)) {
-			//modificarCuenta((Cuenta)entidad);
+			modificarCuenta((Cuenta)entidad);
 		}
 		else if(Mesa.class.isInstance(entidad)) {
 			modificarMesa((Mesa)entidad);
@@ -45,6 +45,26 @@ private static PreparedStatement miSentencia;
 			miSentencia.setString(3, camarero.getDni());
 			miSentencia.setInt(4, camarero.getSueldo());
 			miSentencia.setInt(5, camarero.getId());
+			
+			miSentencia.executeUpdate();
+			miSentencia.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void modificarCuenta(Cuenta cuenta) {
+		try {
+			miSentencia = SQLConexion.getConexion().prepareStatement("UPDATE cuentas SET camareroId = ?, mesaId = ?, importe = ?,"
+					+ " metodo_pago = ?, pago_recibido = ? WHERE id = ?");
+			
+			miSentencia.setInt(1, cuenta.getCamarero().getId());
+			miSentencia.setInt(2, cuenta.getMesa().getId());
+			miSentencia.setDouble(3, cuenta.getImporte());
+			miSentencia.setString(4, cuenta.getMetodo_pago());
+			miSentencia.setBoolean(5, cuenta.getPago_recibido());
+			miSentencia.setInt(6, cuenta.getId());
 			
 			miSentencia.executeUpdate();
 			miSentencia.close();

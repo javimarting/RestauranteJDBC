@@ -1,6 +1,7 @@
 package modelo;
 
 import java.sql.Date;
+import java.time.Clock;
 import java.time.LocalDate;
 
 public class Cuenta extends Entidad{
@@ -19,7 +20,7 @@ public class Cuenta extends Entidad{
 	public Cuenta(Camarero camarero, Mesa mesa, Double importe, String metodo_pago, Boolean pago_recibido) {
 		this.camarero = camarero;
 		this.mesa = mesa;
-		fecha = LocalDate.now();
+		fecha = LocalDate.now(Clock.systemDefaultZone());
 		this.importe = importe;
 		this.metodo_pago = metodo_pago;
 		this.pago_recibido = pago_recibido;
@@ -80,12 +81,14 @@ public class Cuenta extends Entidad{
 		case 0:
 			return id;
 		case 1:
-			return fecha;
+			return camarero.getNombre();
 		case 2:
-			return importe;
+			return mesa.getId();
 		case 3:
-			return metodo_pago;
+			return importe;
 		case 4:
+			return metodo_pago;
+		case 5:
 			if(pago_recibido) {
 				return "Sí";
 			}else {
