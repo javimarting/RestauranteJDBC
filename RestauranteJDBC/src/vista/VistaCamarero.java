@@ -18,6 +18,9 @@ public class VistaCamarero extends VistaEntidad {
 	public VistaCamarero() {
 		super("CAMAREROS", new String[] {"id", "Nombre", "Apellido", "DNI", "Sueldo"}, new String[] {"id", "Nombre", "Apellido"});
 		
+		busqueda.put("Nombre", "nombre");
+		busqueda.put("Apellido", "apellido");
+		
 		lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(40, 80, 60, 15);
 		pnlDatos.add(lblNombre);
@@ -51,6 +54,8 @@ public class VistaCamarero extends VistaEntidad {
 		pnlDatos.add(txtSueldo);
 		
 		pnlBotonesSecundario.setLocation(115, 350);
+		
+		tabla.getColumnModel().getColumn(0).setPreferredWidth(45);
 	}
 
 	public JTextField getTxtNombre() {

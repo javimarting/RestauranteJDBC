@@ -79,7 +79,7 @@ public class Cuenta extends Entidad{
 		case 0:
 			return id;
 		case 1:
-			return camarero.getNombre();
+			return camarero.getNombre() + " (id: " + camarero.getId() + ")";
 		case 2:
 			return mesa.getId();
 		case 3:

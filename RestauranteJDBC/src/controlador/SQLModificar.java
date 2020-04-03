@@ -92,7 +92,7 @@ private static PreparedStatement miSentencia;
 	
 	public static void modificarMesa(Mesa mesa) {
 		try {
-			miSentencia = SQLConexion.getConexion().prepareStatement("UPDATE mesas SET num_personas = ? WHERE id = =");
+			miSentencia = SQLConexion.getConexion().prepareStatement("UPDATE mesas SET num_personas = ? WHERE id = ?");
 			
 			miSentencia.setInt(1, mesa.getNumPersonas());
 			miSentencia.setInt(2, mesa.getId());

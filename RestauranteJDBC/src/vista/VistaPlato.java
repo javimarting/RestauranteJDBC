@@ -15,6 +15,8 @@ public class VistaPlato extends VistaEntidad {
 	public VistaPlato() {
 		super("PLATOS", new String[] {"id", "Nombre", "Precio"}, new String[] {"id", "Nombre"});
 		
+		busqueda.put("Nombre", "nombre");
+		
 		lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(40, 110, 60, 15);
 		pnlDatos.add(lblNombre);

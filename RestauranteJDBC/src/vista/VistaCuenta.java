@@ -1,7 +1,6 @@
 package vista;
 
-import java.sql.Date;
-
+import java.util.Hashtable;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -21,13 +20,20 @@ public class VistaCuenta extends VistaEntidad {
 	private JComboBox<Entidad> cbCamareros;
 	private JComboBox<Entidad> cbMesas;
 	private JComboBox<String> cbMetodoPago;
+	private JComboBox<String> cbMetodoPagoBuscar;
 	
 	private JTextField txtImporte;
 	private JCheckBox chbPagoRecibido;
 
 	
 	public VistaCuenta() {
-		super("CUENTAS", new String[] {"id", "Camarero", "Mesa", "Importe", "Método pago", "Pago recibido"}, new String[] {"id", "Camarero"});
+		super("CUENTAS", new String[] {"id", "Camarero", "Mesa", "Importe", "Método de pago", "Pago recibido"}, 
+				new String[] {"id", "Camarero Id", "Mesa", "Método de pago"});
+		
+		busqueda.put("Camarero Id", "camareroId");
+		busqueda.put("Mesa", "mesaId");
+		busqueda.put("Método de pago", "metodo_pago");
+		busqueda.put("Pago recibido", "pago_recibido");
 		
 		lblCamarero = new JLabel("Camarero");
 		lblCamarero.setBounds(40, 80, 60, 15);
@@ -66,11 +72,24 @@ public class VistaCuenta extends VistaEntidad {
 		cbMetodoPago.setSelectedItem(null);
 		pnlDatos.add(cbMetodoPago);
 		
+		cbMetodoPagoBuscar = new JComboBox<>(new String[] {"", "Tarjeta", "Efectivo"});
+		cbMetodoPagoBuscar.setBounds(111, 3, 112, 26);
+		cbMetodoPagoBuscar.setSelectedItem("");
+		pnlBuscar.add(cbMetodoPagoBuscar);
+		cbMetodoPagoBuscar.setVisible(false);
+		
 		chbPagoRecibido = new JCheckBox();
 		chbPagoRecibido.setBounds(130, 232, 150, 30);
 		pnlDatos.add(chbPagoRecibido);
 		
 		pnlBotonesSecundario.setLocation(115, 390);
+		
+		int[] anchoColumnas = {50, 115, 55, 82, 110, 80};
+		
+		
+		for(int i= 0; i<anchoColumnas.length; i++) {
+			tabla.getColumnModel().getColumn(i).setPreferredWidth(anchoColumnas[i]);
+		}
 	}
 	
 	public void vaciarCampos() {
@@ -92,6 +111,15 @@ public class VistaCuenta extends VistaEntidad {
 	public JTextField getTxtImporte() {
 		return txtImporte;
 	}
+	
+	@Override
+	public String getTxtBuscar() {
+		if(getTxtBuscar2().isVisible()) {
+			return super.getTxtBuscar();
+		}else {
+			return (String)cbMetodoPagoBuscar.getSelectedItem();
+		}
+	}
 
 	public JComboBox<String> getCbMetodoPago() {
 		return cbMetodoPago;
@@ -99,6 +127,22 @@ public class VistaCuenta extends VistaEntidad {
 
 	public JCheckBox getChbPagoRecibido() {
 		return chbPagoRecibido;
+	}
+
+	public Hashtable<String, String> getBusqueda() {
+		return busqueda;
+	}
+
+	public JComboBox<String> getCbMetodoPagoBuscar() {
+		return cbMetodoPagoBuscar;
+	}
+
+	public void setCbMetodoPagoBuscar(JComboBox<String> cbMetodoPagoBuscar) {
+		this.cbMetodoPagoBuscar = cbMetodoPagoBuscar;
+	}
+
+	public void setBusqueda(Hashtable<String, String> busqueda) {
+		this.busqueda = busqueda;
 	}
 
 	public void setChbPagoRecibido(JCheckBox chbPagoRecibido) {

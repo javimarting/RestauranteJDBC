@@ -60,7 +60,6 @@ public class Controlador extends MouseAdapter{
 		else if(e.getSource() == frame.getVistaMenu().getPnlCuentas()){
 			frame.mostrarVista(frame.getVistaCuenta());
 			controladorCuenta.actualizarTabla();
-			//frame.getVistaCuenta().getModeloTabla().setFilas(SQLConsulta.consultarCuentas());
 		}
 		else if(e.getSource() == frame.getVistaHome().getBotonCrearTablas()) {
 			SQLCrearTablas.crearTablas();

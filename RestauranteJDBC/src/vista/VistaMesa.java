@@ -10,7 +10,9 @@ public class VistaMesa extends VistaEntidad {
 	private JTextField txtNumPersonas;
 	
 	public VistaMesa() {
-		super("MESAS", new String[] {"id", "Num_Personas"}, new String[] {"id", "Num_Personas"});
+		super("MESAS", new String[] {"id", "Num_Personas"}, new String[] {"id", "Numero Personas"});
+		
+		busqueda.put("Numero Personas", "num_personas");
 		
 		lblNumPersonas = new JLabel("Num_Personas");
 		lblNumPersonas.setBounds(25, 140, 100, 15);
@@ -20,7 +22,7 @@ public class VistaMesa extends VistaEntidad {
 		txtNumPersonas.setBounds(130, 137, 140, 20);
 		pnlDatos.add(txtNumPersonas);
 		
-		
+
 	}
 
 	public JTextField getTxtNumPersonas() {

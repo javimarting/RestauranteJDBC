@@ -3,6 +3,7 @@ package vista;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,7 +32,7 @@ public abstract class VistaEntidad extends JPanel {
 	private JPanel pnlSecundario;
 	private JScrollPane scroll;
 	protected ModeloTabla modeloTabla;
-	private JTable tabla;
+	protected JTable tabla;
 	private JLabel lblTitulo;
 	private JPanel pnlBotonesPrincipal;
 	protected JPanel pnlBotonesSecundario;
@@ -42,19 +43,24 @@ public abstract class VistaEntidad extends JPanel {
 	private JButton btnAceptarInsertar;
 	private JButton btnAceptarModificar;
 	private JButton btnCancelar;
-	private JPanel pnlBuscar;
+	protected JPanel pnlBuscar;
 	private JTextField txtBuscar;
 	private JLabel lblBuscar;
 	private JComboBox<String> cbBuscar;
+	protected Hashtable<String, String> busqueda;
 	private Image img_buscar = 
 			new ImageIcon(VistaCamarero.class.getResource("../res/search.png")).
 			getImage().getScaledInstance(14, 14, Image.SCALE_SMOOTH);
 	
 	
 	public VistaEntidad(String titulo, String[] columnas, String[] opciones) {
+	
 		setOpaque(false);
 		setBounds(170, 0, 530, 578);
 		setLayout(null);
+		
+		busqueda = new Hashtable<>();
+		busqueda.put("id", "id");
 		
 		pnlPrincipal = new JPanel();
 		pnlPrincipal.setBounds(0, 0, 530, 578);
@@ -67,7 +73,6 @@ public abstract class VistaEntidad extends JPanel {
 		pnlSecundario.setLayout(null);
 		pnlSecundario.setOpaque(false);
 		add(pnlSecundario);	
-		
 		
 		scroll = new JScrollPane();
 		modeloTabla = new ModeloTabla(columnas);
@@ -191,15 +196,28 @@ public abstract class VistaEntidad extends JPanel {
 		return lblBuscar;
 	}
 	
+	public JComboBox<String> getCbBuscar() {
+		return cbBuscar;
+	}
+
+	public void setCbBuscar(JComboBox<String> cbBuscar) {
+		this.cbBuscar = cbBuscar;
+	}
+
 	public String getOpcionBuscar() {
 		if(cbBuscar.getSelectedItem() == null) {
 			throw new NullPointerException();
 		}
-		return (String)cbBuscar.getSelectedItem();
+		return busqueda.get(cbBuscar.getSelectedItem());
 	}
 	
 	public String getTxtBuscar() {
 		return txtBuscar.getText();
+	}
+	
+	//Se cambiará el nombre de este método
+	public JTextField getTxtBuscar2() {
+		return txtBuscar;
 	}
 	
 	public abstract void vaciarCampos();
@@ -236,6 +254,7 @@ public abstract class VistaEntidad extends JPanel {
 		btnAceptarInsertar.addMouseListener(c);
 		btnAceptarModificar.addMouseListener(c);
 		lblBuscar.addMouseListener(c);
+		cbBuscar.addActionListener(c);
 	}
 	
 	public void mostrarPnlPrincipal() {
@@ -272,7 +291,11 @@ public abstract class VistaEntidad extends JPanel {
 		
 		@Override
 		public int getRowCount() {
-			return filas.size();		
+			try {
+				return filas.size();
+			}catch(NullPointerException e) {
+				return 0;
+			}
 		}
 		
 		@Override

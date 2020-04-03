@@ -14,6 +14,8 @@ public class VistaIngrediente extends VistaEntidad {
 	public VistaIngrediente() {
 		super("INGREDIENTES", new String[] {"id", "Nombre", "Precio"}, new String[] {"id", "Nombre"});
 		
+		busqueda.put("Nombre", "nombre");
+		
 		lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(40, 110, 60, 15);
 		pnlDatos.add(lblNombre);
@@ -30,7 +32,7 @@ public class VistaIngrediente extends VistaEntidad {
 		txtPrecio.setBounds(130, 157, 140, 20);
 		pnlDatos.add(txtPrecio);
 		
-		
+	
 	}
 
 	public JTextField getTxtNombre() {

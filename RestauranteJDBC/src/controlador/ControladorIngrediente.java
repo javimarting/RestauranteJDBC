@@ -1,6 +1,8 @@
 package controlador;
 
 
+import java.awt.event.ItemEvent;
+
 import modelo.Ingrediente;
 import vista.VistaIngrediente;
 
@@ -39,4 +41,6 @@ public class ControladorIngrediente extends ControladorEntidad{
 		ingrediente.setPrecio(precio);
 		return ingrediente;
 	}
+
+	
 }

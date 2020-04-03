@@ -1,5 +1,8 @@
 package controlador;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import modelo.Camarero;
@@ -78,4 +81,19 @@ public class ControladorCuenta extends ControladorEntidad{
 		}
 		((VistaCuenta)vistaEntidad).getCbMesas().setSelectedItem(null);
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(vistaEntidad.getCbBuscar().getSelectedItem() == "Método de pago") {
+			((VistaCuenta)vistaEntidad).getCbMetodoPagoBuscar().setVisible(true);
+			vistaEntidad.getTxtBuscar2().setVisible(false);
+		}
+		else {
+			((VistaCuenta)vistaEntidad).getCbMetodoPagoBuscar().setVisible(false);
+			vistaEntidad.getTxtBuscar2().setVisible(true);
+			((VistaCuenta)vistaEntidad).getCbMetodoPagoBuscar().setSelectedItem("");
+		}
+	}
+	
+	
 }
