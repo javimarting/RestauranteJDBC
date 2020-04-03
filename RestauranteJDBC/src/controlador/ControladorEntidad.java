@@ -94,7 +94,7 @@ public abstract class ControladorEntidad extends MouseAdapter implements ActionL
 			try {
 				cargarCampos();
 				vistaEntidad.mostrarPnlModificar();
-			} catch (ArrayIndexOutOfBoundsException ex) {
+			} catch (IndexOutOfBoundsException ex) {
 				JOptionPane.showMessageDialog(null, "Debes seleccionar una fila", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			

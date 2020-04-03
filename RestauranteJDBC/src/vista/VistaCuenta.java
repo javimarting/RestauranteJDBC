@@ -80,6 +80,7 @@ public class VistaCuenta extends VistaEntidad {
 		
 		chbPagoRecibido = new JCheckBox();
 		chbPagoRecibido.setBounds(130, 232, 150, 30);
+		chbPagoRecibido.setOpaque(false);
 		pnlDatos.add(chbPagoRecibido);
 		
 		pnlBotonesSecundario.setLocation(115, 390);
