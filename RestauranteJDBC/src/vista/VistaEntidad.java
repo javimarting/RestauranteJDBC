@@ -74,7 +74,7 @@ public abstract class VistaEntidad extends JPanel {
 		scroll = new JScrollPane();
 		modeloTabla = new ModeloTabla(columnas);
         tabla = new JTable(modeloTabla);
-        tabla.setShowGrid(true);
+        tabla.setShowGrid(false);
         scroll.setViewportView(tabla);
         pnlPrincipal.add(scroll);
 		scroll.setBounds(19, 130, 492, 360);
@@ -109,7 +109,6 @@ public abstract class VistaEntidad extends JPanel {
 		pnlBuscar.setBounds(19, 96, 310, 30);
 		pnlPrincipal.add(pnlBuscar);
 		pnlBuscar.setLayout(null);
-		pnlBuscar.setBackground(new Color(230, 230, 230));
 		
 		cbBuscar = new JComboBox<>(opciones);
 		cbBuscar.setBounds(2, 3, 103, 27);
