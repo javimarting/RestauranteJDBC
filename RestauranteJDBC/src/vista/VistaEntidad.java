@@ -5,18 +5,14 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.Hashtable;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
-
 import controlador.ControladorEntidad;
 import modelo.Entidad;
-
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -80,11 +76,11 @@ public abstract class VistaEntidad extends JPanel {
 		scroll = new JScrollPane();
 		modeloTabla = new ModeloTabla(columnas);
 		tabla = new JTable(modeloTabla);
-		tabla.setShowGrid(false);
 		for(int i = 0; i < modeloTabla.getColumnCount(); i++) {
 			tabla.setDefaultRenderer(tabla.getColumnClass(i), new CellRenderer());
 		}
 		tabla.getTableHeader().setDefaultRenderer(new SimpleHeaderRenderer());
+		tabla.setShowGrid(false);
 		scroll.setViewportView(tabla);
 		pnlPrincipal.add(scroll);
 		scroll.setBounds(19, 130, 492, 360);
@@ -373,9 +369,6 @@ public abstract class VistaEntidad extends JPanel {
 			
 			setBackground(Color.white);
 			setBorder(null);
-			
-			super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
 			boolean oddRow = (row % 2 == 0);
 
 			Color c = new Color(230, 240, 250);
@@ -383,6 +376,9 @@ public abstract class VistaEntidad extends JPanel {
 			if (oddRow) {
 				setBackground(c);
 			}
+			
+			super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+						
 			return this;
 		}
 	}
