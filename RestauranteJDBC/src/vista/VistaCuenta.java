@@ -85,11 +85,12 @@ public class VistaCuenta extends VistaEntidad {
 		
 		pnlBotonesSecundario.setLocation(115, 390);
 		
-		int[] anchoColumnas = {50, 115, 55, 82, 110, 80};
+		int[] prefAnchoColumnas = {45, 115, 55, 75, 117, 85};
+		int[] minAnchoColumnas = {20, 100, 45, 55, 110, 80};
 		
-		
-		for(int i= 0; i<anchoColumnas.length; i++) {
-			tabla.getColumnModel().getColumn(i).setPreferredWidth(anchoColumnas[i]);
+		for(int i= 0; i<prefAnchoColumnas.length; i++) {
+			tabla.getColumnModel().getColumn(i).setPreferredWidth(prefAnchoColumnas[i]);
+			tabla.getColumnModel().getColumn(i).setMinWidth(minAnchoColumnas[i]);
 		}
 	}
 	
