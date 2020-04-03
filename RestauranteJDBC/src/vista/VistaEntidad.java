@@ -13,6 +13,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import controlador.ControladorEntidad;
 import modelo.Entidad;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -86,7 +88,7 @@ public abstract class VistaEntidad extends JPanel {
 		pnlPrincipal.add(scroll);
 		scroll.setBounds(19, 130, 492, 360);
 		scroll.getViewport().setBackground(Color.white);
-		scroll.getViewport().setBorder(null);
+		scroll.setBorder(BorderFactory.createEmptyBorder());
 
 		// Título del panel
 		lblTitulo = new JLabel(titulo);
@@ -120,18 +122,18 @@ public abstract class VistaEntidad extends JPanel {
 		pnlBuscar.setLayout(null);
 
 		cbBuscar = new JComboBox<>(opciones);
-		cbBuscar.setBounds(2, 5, 103, 27);
+		cbBuscar.setBounds(5, 5, 103, 27);
 		cbBuscar.setBackground(Color.white);
 		cbBuscar.setSelectedItem(null);
 		pnlBuscar.add(cbBuscar);
 
 		txtBuscar = new JTextField();
-		txtBuscar.setBounds(111, 5, 112, 26);
+		txtBuscar.setBounds(114, 5, 112, 26);
 		pnlBuscar.add(txtBuscar);
 		txtBuscar.setColumns(10);
 
 		lblBuscar = new JLabel("Buscar");
-		lblBuscar.setBounds(235, 9, 61, 16);
+		lblBuscar.setBounds(238, 9, 61, 16);
 		lblBuscar.setIcon(new ImageIcon(img_buscar));
 		pnlBuscar.add(lblBuscar);
 		mouseListen(lblBuscar);
