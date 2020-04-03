@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 import controlador.Controlador;
 
 
-
+//Frame principal donde se encuentran el menú y los distintos paneles (panel ingredientes, panel camareros, etc)
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 7464192795906083075L;
@@ -23,6 +23,7 @@ public class MainFrame extends JFrame {
 	private VistaMesa vistaMesa;
 	private VistaCuenta vistaCuenta;
 
+	//Constructor
 	public MainFrame() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,6 +36,7 @@ public class MainFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		
+		//Inicialización de los distintos paneles
 		vistaMenu = new VistaMenu();
 		contentPane.add(vistaMenu);
 		
@@ -61,11 +63,13 @@ public class MainFrame extends JFrame {
 		
 	}
 	
+	//Conectar el controlador que se ocupará del menú y del panel de Home
 	public void conectarControlador(Controlador c) {
 		vistaHome.conectarControlador(c);
 		vistaMenu.conectarControlador(c);
 	}
 
+	//Hace visible el panel que pasemos por parámetro, haciendo invisible todos los demás (a excepción del menú, que está siempre visible)
 	public void mostrarVista(JPanel vista) {
 		vistaHome.setVisible(false);
 		vistaBebida.setVisible(false);
@@ -77,6 +81,7 @@ public class MainFrame extends JFrame {
 		vista.setVisible(true);
 	}
 	
+	//Algunos getters
 	public VistaMenu getVistaMenu() {
 		return vistaMenu;
 	}

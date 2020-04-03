@@ -24,8 +24,8 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
+//Determina el aspecto de los distintos paneles (a excepción del menú y del panel home)
 public abstract class VistaEntidad extends JPanel {
-
 	
 	private static final long serialVersionUID = -5506562014929062558L;
 	private JPanel pnlPrincipal;
@@ -52,7 +52,7 @@ public abstract class VistaEntidad extends JPanel {
 			new ImageIcon(VistaCamarero.class.getResource("../res/search.png")).
 			getImage().getScaledInstance(14, 14, Image.SCALE_SMOOTH);
 	
-	
+	//Constructor
 	public VistaEntidad(String titulo, String[] columnas, String[] opciones) {
 	
 		setOpaque(false);
