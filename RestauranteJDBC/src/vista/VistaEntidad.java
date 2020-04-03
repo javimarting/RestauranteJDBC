@@ -112,6 +112,7 @@ public abstract class VistaEntidad extends JPanel {
 		
 		cbBuscar = new JComboBox<>(opciones);
 		cbBuscar.setBounds(2, 3, 103, 27);
+		cbBuscar.setBackground(Color.white);
 		cbBuscar.setSelectedItem(null);
 		pnlBuscar.add(cbBuscar);
 		
