@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -9,9 +10,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+
 import controlador.ControladorEntidad;
 import modelo.Entidad;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -26,7 +31,7 @@ import javax.swing.JTextField;
 
 //Determina el aspecto de los distintos paneles (a excepción del menú y del panel home)
 public abstract class VistaEntidad extends JPanel {
-	
+
 	private static final long serialVersionUID = -5506562014929062558L;
 	private JPanel pnlPrincipal;
 	private JPanel pnlSecundario;
@@ -48,139 +53,146 @@ public abstract class VistaEntidad extends JPanel {
 	private JLabel lblBuscar;
 	private JComboBox<String> cbBuscar;
 	protected Hashtable<String, String> busqueda;
-	private Image img_buscar = 
-			new ImageIcon(VistaCamarero.class.getResource("../res/search.png")).
-			getImage().getScaledInstance(14, 14, Image.SCALE_SMOOTH);
-	
-	//Constructor
+	private Image img_buscar = new ImageIcon(VistaCamarero.class.getResource("../res/search.png")).getImage()
+			.getScaledInstance(14, 14, Image.SCALE_SMOOTH);
+
+	// Constructor
 	public VistaEntidad(String titulo, String[] columnas, String[] opciones) {
-	
+
 		setOpaque(false);
 		setBounds(170, 0, 530, 578);
 		setLayout(null);
-		
-		//Hashtable para asociar los nombres de las opciones de búsqueda con el nombre real en la base de datos
+
+		// Hashtable para asociar los nombres de las opciones de búsqueda con el nombre
+		// real en la base de datos
 		busqueda = new Hashtable<>();
 		busqueda.put("id", "id");
-		
-		//Panel principal donde se encuentran la JTable, el panel de buscar y los botones de insertar, modificar y eliminar
+
+		// Panel principal donde se encuentran la JTable, el panel de buscar y los
+		// botones de insertar, modificar y eliminar
 		pnlPrincipal = new JPanel();
 		pnlPrincipal.setBounds(0, 0, 530, 578);
 		pnlPrincipal.setLayout(null);
 		pnlPrincipal.setOpaque(false);
 		add(pnlPrincipal);
-		
-		//Tabla para mostrar contenido
+
+		// Tabla para mostrar contenido
 		scroll = new JScrollPane();
 		modeloTabla = new ModeloTabla(columnas);
-        tabla = new JTable(modeloTabla);
-        tabla.setShowGrid(false);
-        scroll.setViewportView(tabla);
-        pnlPrincipal.add(scroll);
+		tabla = new JTable(modeloTabla);
+		tabla.setShowGrid(false);
+		for(int i = 0; i < modeloTabla.getColumnCount(); i++) {
+			tabla.setDefaultRenderer(tabla.getColumnClass(i), new CellRenderer());
+		}
+		tabla.getTableHeader().setDefaultRenderer(new SimpleHeaderRenderer());
+		scroll.setViewportView(tabla);
+		pnlPrincipal.add(scroll);
 		scroll.setBounds(19, 130, 492, 360);
 		scroll.getViewport().setBackground(Color.white);
-		
-		//Título del panel
+
+		// Título del panel
 		lblTitulo = new JLabel(titulo);
-		lblTitulo.setFont(new Font("Lucida Grande", Font.BOLD, 20));		
+		lblTitulo.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setBounds(185, 42, 160, 30);
 		pnlPrincipal.add(lblTitulo);
-		
-		//Panel donde se encuentran los botones insertar, modificar y eliminar
+
+		// Panel donde se encuentran los botones insertar, modificar y eliminar
 		pnlBotonesPrincipal = new JPanel();
 		pnlBotonesPrincipal.setOpaque(false);
 		pnlBotonesPrincipal.setBounds(19, 512, 492, 42);
 		pnlBotonesPrincipal.setLayout(null);
 		pnlPrincipal.add(pnlBotonesPrincipal);
-		
+
 		btnInsertar = new JButton("INSERTAR");
 		crearBoton(btnInsertar, 26, 6, pnlBotonesPrincipal);
-		
+
 		btnModificar = new JButton("MODIFICAR");
 		crearBoton(btnModificar, 187, 6, pnlBotonesPrincipal);
-		
+
 		btnEliminar = new JButton("ELIMINAR");
 		crearBoton(btnEliminar, 348, 6, pnlBotonesPrincipal);
-		
-		//Panel con distintos elementos para buscar
+
+		// Panel con distintos elementos para buscar
 		pnlBuscar = new JPanel();
 		pnlBuscar.setBounds(19, 96, 310, 30);
 		pnlPrincipal.add(pnlBuscar);
 		pnlBuscar.setLayout(null);
-		
+
 		cbBuscar = new JComboBox<>(opciones);
 		cbBuscar.setBounds(2, 3, 103, 27);
 		cbBuscar.setBackground(Color.white);
 		cbBuscar.setSelectedItem(null);
 		pnlBuscar.add(cbBuscar);
-		
+
 		txtBuscar = new JTextField();
 		txtBuscar.setBounds(111, 3, 112, 26);
 		pnlBuscar.add(txtBuscar);
 		txtBuscar.setColumns(10);
-		
+
 		lblBuscar = new JLabel("Buscar");
 		lblBuscar.setBounds(235, 7, 61, 16);
 		lblBuscar.setIcon(new ImageIcon(img_buscar));
 		pnlBuscar.add(lblBuscar);
 		mouseListen(lblBuscar);
-		
-		//Panel secundario donde se encuentran los campos para rellenar los datos de un objeto nuevo o modificar uno ya existente
+
+		// Panel secundario donde se encuentran los campos para rellenar los datos de un
+		// objeto nuevo o modificar uno ya existente
 		pnlSecundario = new JPanel();
 		pnlSecundario.setBounds(0, 0, 530, 578);
 		pnlSecundario.setLayout(null);
 		pnlSecundario.setOpaque(false);
-		add(pnlSecundario);	
-		
-		//Panel dentro del panel secundario donde se encuentran los campos para rellenar
+		add(pnlSecundario);
+
+		// Panel dentro del panel secundario donde se encuentran los campos para
+		// rellenar
 		pnlDatos = new JPanel();
 		pnlDatos.setOpaque(false);
 		pnlDatos.setBounds(115, 110, 295, 260);
 		pnlDatos.setLayout(null);
 		pnlSecundario.add(pnlDatos);
-		
-		//Panel donde se encuentran los botones del panel secundario, que son aceptarInsertar, aceptarModificar y cancelar
+
+		// Panel donde se encuentran los botones del panel secundario, que son
+		// aceptarInsertar, aceptarModificar y cancelar
 		pnlBotonesSecundario = new JPanel();
 		pnlBotonesSecundario.setOpaque(false);
 		pnlBotonesSecundario.setBounds(115, 330, 300, 42);
 		pnlBotonesSecundario.setLayout(null);
 		pnlSecundario.add(pnlBotonesSecundario);
-		
+
 		btnAceptarInsertar = new JButton("ACEPTAR");
 		crearBoton(btnAceptarInsertar, 16, 6, pnlBotonesSecundario);
-		
+
 		btnAceptarModificar = new JButton("ACEPTAR");
 		crearBoton(btnAceptarModificar, 16, 6, pnlBotonesSecundario);
-		
+
 		btnCancelar = new JButton("CANCELAR");
 		crearBoton(btnCancelar, 166, 6, pnlBotonesSecundario);
-				
-		
+
 	}
-	
-	//Getters
+
+	// Getters
 	public JPanel getPnlPrincipal() {
 		return pnlPrincipal;
 	}
-	
+
 	public JPanel getPnlSecundario() {
 		return pnlSecundario;
 	}
-	
+
 	public JPanel getPnlDatos() {
 		return pnlDatos;
 	}
-	
+
 	public ModeloTabla getModeloTabla() {
 		return modeloTabla;
 	}
-	
-	public Entidad getEntidadSeleccionada(){
+
+	public Entidad getEntidadSeleccionada() {
 		return modeloTabla.getEntidad(tabla.getSelectedRow());
 	}
-	
+
 	public JButton getBtnInsertar() {
 		return btnInsertar;
 	}
@@ -192,23 +204,23 @@ public abstract class VistaEntidad extends JPanel {
 	public JButton getBtnEliminar() {
 		return btnEliminar;
 	}
-	
+
 	public JButton getBtnCancelar() {
 		return btnCancelar;
 	}
-	
+
 	public JButton getBtnAceptarInsertar() {
 		return btnAceptarInsertar;
 	}
-	
+
 	public JButton getBtnAceptarModificar() {
 		return btnAceptarModificar;
 	}
-	
+
 	public JLabel getLblBuscar() {
 		return lblBuscar;
 	}
-	
+
 	public JComboBox<String> getCbBuscar() {
 		return cbBuscar;
 	}
@@ -217,24 +229,23 @@ public abstract class VistaEntidad extends JPanel {
 		this.cbBuscar = cbBuscar;
 	}
 
-	
 	public String getOpcionBuscar() {
-		if(cbBuscar.getSelectedItem() == null) {
+		if (cbBuscar.getSelectedItem() == null) {
 			throw new NullPointerException();
 		}
 		return busqueda.get(cbBuscar.getSelectedItem());
 	}
-	
+
 	public String getTxtBuscar() {
 		return txtBuscar.getText();
 	}
-	
-	//Se cambiará el nombre de este método
+
+	// Se cambiará el nombre de este método
 	public JTextField getTxtBuscar2() {
 		return txtBuscar;
 	}
-	
-	//Vacía los distintos campos para rellenar
+
+	// Vacía los distintos campos para rellenar
 	public abstract void vaciarCampos();
 
 	public void crearBoton(JButton boton, int x, int y, JPanel panel) {
@@ -246,22 +257,23 @@ public abstract class VistaEntidad extends JPanel {
 		panel.add(boton);
 		mouseListen(boton);
 	}
-	
-	
+
 	public void mouseListen(JComponent boton) {
 		boton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 		});
 	}
-	
-	//Conecta un controlador que se ocupará de llevar a cabo las acciones destinadas para cada botón o elemento
+
+	// Conecta un controlador que se ocupará de llevar a cabo las acciones
+	// destinadas para cada botón o elemento
 	public void conectarControlador(ControladorEntidad c) {
 		btnInsertar.addMouseListener(c);
 		btnModificar.addMouseListener(c);
@@ -272,84 +284,125 @@ public abstract class VistaEntidad extends JPanel {
 		lblBuscar.addMouseListener(c);
 		cbBuscar.addActionListener(c);
 	}
-	
-	//Muestra el panel principal, haciendo invisible el secundario
+
+	// Muestra el panel principal, haciendo invisible el secundario
 	public void mostrarPnlPrincipal() {
 		pnlPrincipal.setVisible(true);
 		pnlSecundario.setVisible(false);
 		vaciarCampos();
 	}
-	
-	//Muestra el panel secundario para insertar un nuevo objeto
+
+	// Muestra el panel secundario para insertar un nuevo objeto
 	public void mostrarPnlInsertar() {
 		pnlPrincipal.setVisible(false);
 		pnlSecundario.setVisible(true);
 		btnAceptarInsertar.setVisible(true);
 		btnAceptarModificar.setVisible(false);
 	}
-	
-	//Muestra el panel secundario para modificar un objeto ya existente (difiere con el método mostrarPnlInsertar() en que este muestra el 
-	//botón aceptarModificar mientras que el otro muestra el botón aceptarInsertar)
+
+	// Muestra el panel secundario para modificar un objeto ya existente (difiere
+	// con el método mostrarPnlInsertar() en que este muestra el
+	// botón aceptarModificar mientras que el otro muestra el botón aceptarInsertar)
 	public void mostrarPnlModificar() {
 		pnlPrincipal.setVisible(false);
 		pnlSecundario.setVisible(true);
 		btnAceptarInsertar.setVisible(false);
 		btnAceptarModificar.setVisible(true);
 	}
-	
-	//Modelo de tabla personalizado
-	public class ModeloTabla extends AbstractTableModel{
-		
+
+	// Modelo de tabla personalizado
+	public class ModeloTabla extends AbstractTableModel {
+
 		private static final long serialVersionUID = -1169766261068554864L;
 		private ArrayList<Entidad> filas;
 		private String[] columnas;
-		
-		
+
 		public ModeloTabla(String[] columnas) {
-			this.columnas=columnas;
+			this.columnas = columnas;
 			filas = new ArrayList<>();
 		}
-		
+
 		@Override
 		public int getRowCount() {
 			try {
 				return filas.size();
-			}catch(NullPointerException e) {
+			} catch (NullPointerException e) {
 				return 0;
 			}
 		}
-		
+
 		@Override
 		public int getColumnCount() {
 			return columnas.length;
 		}
-		
+
 		public String getColumnName(int columna) {
 			return columnas[columna];
 		}
-		
+
 		@Override
-		public Object getValueAt(int fila, int columna) {		
-			return filas.get(fila).getColumna(columna);					
+		public Object getValueAt(int fila, int columna) {
+			return filas.get(fila).getColumna(columna);
 		}
-		
+
 		public void setFilas(ArrayList<Entidad> filas) {
 			this.filas = filas;
 			fireTableDataChanged();
 		}
-		
+
 		public void setColumnas(String[] columnas) {
 			this.columnas = columnas;
 		}
-		
-		public ArrayList<Entidad> getFilas(){
+
+		public ArrayList<Entidad> getFilas() {
 			return filas;
 		}
-		
+
 		public Entidad getEntidad(int fila) {
 			return filas.get(fila);
 		}
-		
-		
+	}
+
+	public class CellRenderer extends DefaultTableCellRenderer implements TableCellRenderer {
+
+		private static final long serialVersionUID = 7587702285208025470L;
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			
+			setBackground(Color.white);
+			setBorder(null);
+			
+			super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+			boolean oddRow = (row % 2 == 0);
+
+			Color c = new Color(230, 240, 250);
+			
+			if (oddRow) {
+				setBackground(c);
+			}
+			return this;
+		}
+	}
+	
+	public class SimpleHeaderRenderer extends DefaultTableCellRenderer implements TableCellRenderer {
+		 
+	    public SimpleHeaderRenderer() {
+	        setForeground(Color.white);
+	        setBackground(new Color(58, 104, 149));
+	        setBorder(null);
+	    }
+	     
+	    @Override
+	    public Component getTableCellRendererComponent(JTable table, Object value,
+	            boolean isSelected, boolean hasFocus, int row, int column) {
+	        
+			
+			super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+	        return this;
+	    }
+	 
 	}
 }
