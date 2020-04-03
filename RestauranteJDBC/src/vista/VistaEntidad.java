@@ -75,7 +75,6 @@ public abstract class VistaEntidad extends JPanel {
 		modeloTabla = new ModeloTabla(columnas);
         tabla = new JTable(modeloTabla);
         tabla.setShowGrid(true);
-        tabla.getTableHeader().setBackground(new Color(230, 230, 230));
         scroll.setViewportView(tabla);
         pnlPrincipal.add(scroll);
 		scroll.setBounds(19, 130, 492, 360);
