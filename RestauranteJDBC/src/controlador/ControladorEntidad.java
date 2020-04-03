@@ -61,7 +61,7 @@ public abstract class ControladorEntidad extends MouseAdapter implements ActionL
 		if (e.getSource() == vistaEntidad.getBtnEliminar()) {
 			try {
 				eliminar();
-			} catch (ArrayIndexOutOfBoundsException ex) {
+			} catch (IndexOutOfBoundsException ex) {
 				JOptionPane.showMessageDialog(null, "Debes seleccionar una fila", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			
