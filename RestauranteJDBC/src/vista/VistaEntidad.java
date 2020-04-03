@@ -81,10 +81,12 @@ public abstract class VistaEntidad extends JPanel {
 		}
 		tabla.getTableHeader().setDefaultRenderer(new SimpleHeaderRenderer());
 		tabla.setShowGrid(false);
+		tabla.setBorder(null);
 		scroll.setViewportView(tabla);
 		pnlPrincipal.add(scroll);
 		scroll.setBounds(19, 130, 492, 360);
 		scroll.getViewport().setBackground(Color.white);
+		scroll.getViewport().setBorder(null);
 
 		// Título del panel
 		lblTitulo = new JLabel(titulo);
@@ -112,23 +114,24 @@ public abstract class VistaEntidad extends JPanel {
 
 		// Panel con distintos elementos para buscar
 		pnlBuscar = new JPanel();
-		pnlBuscar.setBounds(19, 96, 310, 30);
+		pnlBuscar.setBounds(19, 96, 310, 34);
+		pnlBuscar.setBackground(new Color(230, 240, 250));
 		pnlPrincipal.add(pnlBuscar);
 		pnlBuscar.setLayout(null);
 
 		cbBuscar = new JComboBox<>(opciones);
-		cbBuscar.setBounds(2, 3, 103, 27);
+		cbBuscar.setBounds(2, 5, 103, 27);
 		cbBuscar.setBackground(Color.white);
 		cbBuscar.setSelectedItem(null);
 		pnlBuscar.add(cbBuscar);
 
 		txtBuscar = new JTextField();
-		txtBuscar.setBounds(111, 3, 112, 26);
+		txtBuscar.setBounds(111, 5, 112, 26);
 		pnlBuscar.add(txtBuscar);
 		txtBuscar.setColumns(10);
 
 		lblBuscar = new JLabel("Buscar");
-		lblBuscar.setBounds(235, 7, 61, 16);
+		lblBuscar.setBounds(235, 9, 61, 16);
 		lblBuscar.setIcon(new ImageIcon(img_buscar));
 		pnlBuscar.add(lblBuscar);
 		mouseListen(lblBuscar);
@@ -370,6 +373,7 @@ public abstract class VistaEntidad extends JPanel {
 			setBackground(Color.white);
 			setBorder(null);
 			boolean oddRow = (row % 2 == 0);
+			setHorizontalAlignment(JLabel.CENTER);
 
 			Color c = new Color(230, 240, 250);
 			
@@ -385,10 +389,13 @@ public abstract class VistaEntidad extends JPanel {
 	
 	public class SimpleHeaderRenderer extends DefaultTableCellRenderer implements TableCellRenderer {
 		 
-	    public SimpleHeaderRenderer() {
+		private static final long serialVersionUID = 7244894411276781896L;
+
+		public SimpleHeaderRenderer() {
 	        setForeground(Color.white);
 	        setBackground(new Color(58, 104, 149));
 	        setBorder(null);
+	        setHorizontalAlignment(JLabel.CENTER);
 	    }
 	     
 	    @Override

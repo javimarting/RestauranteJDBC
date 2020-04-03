@@ -10,7 +10,7 @@ public class VistaMesa extends VistaEntidad {
 	private JTextField txtNumPersonas;
 	
 	public VistaMesa() {
-		super("MESAS", new String[] {"id", "Num_Personas"}, new String[] {"id", "Numero Personas"});
+		super("MESAS", new String[] {"id", "Número de Personas"}, new String[] {"id", "Numero Personas"});
 		
 		busqueda.put("Numero Personas", "num_personas");
 		
