@@ -59,21 +59,18 @@ public abstract class VistaEntidad extends JPanel {
 		setBounds(170, 0, 530, 578);
 		setLayout(null);
 		
+		//Hashtable para asociar los nombres de las opciones de búsqueda con el nombre real en la base de datos
 		busqueda = new Hashtable<>();
 		busqueda.put("id", "id");
 		
+		//Panel principal donde se encuentran la JTable, el panel de buscar y los botones de insertar, modificar y eliminar
 		pnlPrincipal = new JPanel();
 		pnlPrincipal.setBounds(0, 0, 530, 578);
 		pnlPrincipal.setLayout(null);
 		pnlPrincipal.setOpaque(false);
 		add(pnlPrincipal);
 		
-		pnlSecundario = new JPanel();
-		pnlSecundario.setBounds(0, 0, 530, 578);
-		pnlSecundario.setLayout(null);
-		pnlSecundario.setOpaque(false);
-		add(pnlSecundario);	
-		
+		//Tabla para mostrar contenido
 		scroll = new JScrollPane();
 		modeloTabla = new ModeloTabla(columnas);
         tabla = new JTable(modeloTabla);        
@@ -81,6 +78,7 @@ public abstract class VistaEntidad extends JPanel {
         pnlPrincipal.add(scroll);
 		scroll.setBounds(19, 130, 492, 360);
 		
+		//Título del panel
 		lblTitulo = new JLabel(titulo);
 		lblTitulo.setFont(new Font("Lucida Grande", Font.BOLD, 20));		
 		lblTitulo.setForeground(Color.WHITE);
@@ -88,6 +86,7 @@ public abstract class VistaEntidad extends JPanel {
 		lblTitulo.setBounds(185, 42, 160, 30);
 		pnlPrincipal.add(lblTitulo);
 		
+		//Panel donde se encuentran los botones insertar, modificar y eliminar
 		pnlBotonesPrincipal = new JPanel();
 		pnlBotonesPrincipal.setOpaque(false);
 		pnlBotonesPrincipal.setBounds(19, 512, 492, 42);
@@ -103,27 +102,7 @@ public abstract class VistaEntidad extends JPanel {
 		btnEliminar = new JButton("ELIMINAR");
 		crearBoton(btnEliminar, 348, 6, pnlBotonesPrincipal);
 		
-		pnlBotonesSecundario = new JPanel();
-		pnlBotonesSecundario.setOpaque(false);
-		pnlBotonesSecundario.setBounds(115, 330, 300, 42);
-		pnlBotonesSecundario.setLayout(null);
-		pnlSecundario.add(pnlBotonesSecundario);
-		
-		btnAceptarInsertar = new JButton("ACEPTAR");
-		crearBoton(btnAceptarInsertar, 16, 6, pnlBotonesSecundario);
-		
-		btnAceptarModificar = new JButton("ACEPTAR");
-		crearBoton(btnAceptarModificar, 16, 6, pnlBotonesSecundario);
-		
-		btnCancelar = new JButton("CANCELAR");
-		crearBoton(btnCancelar, 166, 6, pnlBotonesSecundario);
-		
-		pnlDatos = new JPanel();
-		pnlDatos.setOpaque(false);
-		pnlDatos.setBounds(115, 110, 295, 260);
-		pnlDatos.setLayout(null);
-		pnlSecundario.add(pnlDatos);
-		
+		//Panel con distintos elementos para buscar
 		pnlBuscar = new JPanel();
 		pnlBuscar.setBounds(19, 96, 310, 30);
 		pnlPrincipal.add(pnlBuscar);
@@ -143,7 +122,38 @@ public abstract class VistaEntidad extends JPanel {
 		lblBuscar.setBounds(235, 7, 61, 16);
 		lblBuscar.setIcon(new ImageIcon(img_buscar));
 		pnlBuscar.add(lblBuscar);
-		mouseListen(lblBuscar);		
+		mouseListen(lblBuscar);
+		
+		//Panel secundario donde se encuentran los campos para rellenar los datos de un objeto nuevo o modificar uno ya existente
+		pnlSecundario = new JPanel();
+		pnlSecundario.setBounds(0, 0, 530, 578);
+		pnlSecundario.setLayout(null);
+		pnlSecundario.setOpaque(false);
+		add(pnlSecundario);	
+		
+		//Panel dentro del panel secundario donde se encuentran los campos para rellenar
+		pnlDatos = new JPanel();
+		pnlDatos.setOpaque(false);
+		pnlDatos.setBounds(115, 110, 295, 260);
+		pnlDatos.setLayout(null);
+		pnlSecundario.add(pnlDatos);
+		
+		//Panel donde se encuentran los botones del panel secundario, que son aceptarInsertar, aceptarModificar y cancelar
+		pnlBotonesSecundario = new JPanel();
+		pnlBotonesSecundario.setOpaque(false);
+		pnlBotonesSecundario.setBounds(115, 330, 300, 42);
+		pnlBotonesSecundario.setLayout(null);
+		pnlSecundario.add(pnlBotonesSecundario);
+		
+		btnAceptarInsertar = new JButton("ACEPTAR");
+		crearBoton(btnAceptarInsertar, 16, 6, pnlBotonesSecundario);
+		
+		btnAceptarModificar = new JButton("ACEPTAR");
+		crearBoton(btnAceptarModificar, 16, 6, pnlBotonesSecundario);
+		
+		btnCancelar = new JButton("CANCELAR");
+		crearBoton(btnCancelar, 166, 6, pnlBotonesSecundario);
+				
 		
 	}
 	
@@ -204,6 +214,7 @@ public abstract class VistaEntidad extends JPanel {
 		this.cbBuscar = cbBuscar;
 	}
 
+	
 	public String getOpcionBuscar() {
 		if(cbBuscar.getSelectedItem() == null) {
 			throw new NullPointerException();
@@ -220,6 +231,7 @@ public abstract class VistaEntidad extends JPanel {
 		return txtBuscar;
 	}
 	
+	//Vacía los distintos campos para rellenar
 	public abstract void vaciarCampos();
 
 	public void crearBoton(JButton boton, int x, int y, JPanel panel) {
@@ -246,6 +258,7 @@ public abstract class VistaEntidad extends JPanel {
 		});
 	}
 	
+	//Conecta un controlador que se ocupará de llevar a cabo las acciones destinadas para cada botón o elemento
 	public void conectarControlador(ControladorEntidad c) {
 		btnInsertar.addMouseListener(c);
 		btnModificar.addMouseListener(c);
@@ -257,12 +270,14 @@ public abstract class VistaEntidad extends JPanel {
 		cbBuscar.addActionListener(c);
 	}
 	
+	//Muestra el panel principal, haciendo invisible el secundario
 	public void mostrarPnlPrincipal() {
 		pnlPrincipal.setVisible(true);
 		pnlSecundario.setVisible(false);
 		vaciarCampos();
 	}
 	
+	//Muestra el panel secundario para insertar un nuevo objeto
 	public void mostrarPnlInsertar() {
 		pnlPrincipal.setVisible(false);
 		pnlSecundario.setVisible(true);
@@ -270,6 +285,8 @@ public abstract class VistaEntidad extends JPanel {
 		btnAceptarModificar.setVisible(false);
 	}
 	
+	//Muestra el panel secundario para modificar un objeto ya existente (difiere con el método mostrarPnlInsertar() en que este muestra el 
+	//botón aceptarModificar mientras que el otro muestra el botón aceptarInsertar)
 	public void mostrarPnlModificar() {
 		pnlPrincipal.setVisible(false);
 		pnlSecundario.setVisible(true);
@@ -277,6 +294,7 @@ public abstract class VistaEntidad extends JPanel {
 		btnAceptarModificar.setVisible(true);
 	}
 	
+	//Modelo de tabla personalizado
 	public class ModeloTabla extends AbstractTableModel{
 		
 		private static final long serialVersionUID = -1169766261068554864L;
